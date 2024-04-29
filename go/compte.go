@@ -79,3 +79,35 @@ func Login(email string, password string) {
 		ConnectedUser = infoUser
 	}
 }
+func ChangePassword(userID string, newPassword string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//mettre à jour le mot de passe de l'user
+	_, err = db.Exec("UPDATE users SET password = ? WHERE customer_id = ?", newPassword, userID)
+	if err != nil {
+		fmt.Printf("error updating password: %v", err)
+	}
+}
+func EmailExist(email string) bool {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//cherche de l'email dans la base de données
+	rows, err := db.Query("SELECT * FROM users WHERE email = ?", email)
+	if err != nil {
+		fmt.Printf("error selecting user: %v", err)
+	}
+	defer rows.Close()
+
+	//vérifie si l'email existe
+	return rows.Next()
+}
