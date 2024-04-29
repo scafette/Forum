@@ -111,3 +111,91 @@ func EmailExist(email string) bool {
 	//vérifie si l'email existe
 	return rows.Next()
 }
+func PhoneExist(phone string) bool {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//cherche le numéro de téléphone dans la base de données
+	rows, err := db.Query("SELECT * FROM users WHERE phone = ?", phone)
+	if err != nil {
+		fmt.Printf("error selecting user: %v", err)
+	}
+	defer rows.Close()
+
+	//vérifie si le numéro de téléphone existe
+	return rows.Next()
+}
+func Deleteaccount(userID string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//supprime le compte de l'user
+	_, err = db.Exec("DELETE FROM users WHERE customer_id = ?", userID)
+	if err != nil {
+		fmt.Printf("error deleting user: %v", err)
+	}
+}
+func Updateaccount(userID string, name string, email string, phone string, avatar string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//met à jour les infos de l'user
+	_, err = db.Exec("UPDATE users SET name = ?, email = ?, phone = ?, avatar = ? WHERE customer_id = ?", name, email, phone, avatar, userID)
+	if err != nil {
+		fmt.Printf("error updating user: %v", err)
+	}
+}
+func UpdateUserRole(userID string, role string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//met à jour le rôle de l'user
+	_, err = db.Exec("UPDATE users SET role = ? WHERE customer_id = ?", role, userID)
+	if err != nil {
+		fmt.Printf("error updating user: %v", err)
+	}
+}
+
+func GetUsers() []user {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//cherche tous les utilisateurs
+	rows, err := db.Query("SELECT * FROM users")
+	if err != nil {
+		fmt.Printf("error selecting users: %v", err)
+	}
+	defer rows.Close()
+
+	//stocke les utilisateurs dans un tableau
+	var users []user
+	for rows.Next() {
+		var infoUser user
+		err = rows.Scan(&infoUser.Customer_id, &infoUser.Name, &infoUser.Email, &infoUser.Phone, &infoUser.Created_at, &infoUser.Updated_at, &infoUser.Deleted_at, &infoUser.Status, &infoUser.Password, &infoUser.Role, &infoUser.Avatar)
+		if err != nil {
+			fmt.Printf("error scanning user: %v", err)
+		}
+		users = append(users, infoUser)
+	}
+	return users
+}
