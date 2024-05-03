@@ -1,1 +1,197 @@
 package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+	"time"
+
+	"github.com/google/uuid"
+)
+
+type posts struct {
+	post_id    string
+	title      string
+	content    string
+	user_id    string
+	Created_at string
+	Updated_at string
+	Deleted_at string
+	Status     string
+}
+
+func CreatePost(title string, content string, user_id string) {
+	// crée le UUID 4 pour le post_id
+	u2, err := uuid.NewRandom()
+	if err != nil {
+		log.Fatalf("failed to generate UUID: %v", err)
+	}
+	log.Printf("generated Version 4 UUID %v", u2)
+
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// cherche le temps pour la création et/ou update
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+
+	// Insertion d'un post
+	_, err = db.Exec("INSERT INTO posts (post_id, title, content, user_id, created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)", u2.String(), title, content, user_id, currentTime, currentTime, "published")
+	if err != nil {
+		fmt.Println("Error inserting post:", err)
+		return
+	}
+}
+func UpdatePost(post_id string, title string, content string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// cherche le temps pour la création et/ou update
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+
+	// Mise à jour d'un post
+	_, err = db.Exec("UPDATE posts SET title = ?, content = ?, updated_at = ? WHERE post_id = ?", title, content, currentTime, post_id)
+	if err != nil {
+		fmt.Println("Error updating post:", err)
+		return
+	}
+}
+func DeletePost(post_id string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// cherche le temps pour la création et/ou update
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+
+	// Suppression d'un post
+	_, err = db.Exec("UPDATE posts SET deleted_at = ?, status = ? WHERE post_id = ?", currentTime, "deleted", post_id)
+	if err != nil {
+		fmt.Println("Error deleting post:", err)
+		return
+	}
+}
+func GetPost(post_id string) posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return posts{}
+	}
+	defer db.Close()
+
+	// Recherche d'un post
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
+	var post posts
+	err = row.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+	if err != nil {
+		fmt.Println("Error getting post:", err)
+		return posts{}
+	}
+	return post
+}
+func GetPostsByUser(user_id string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts d'un utilisateur
+	rows, err := db.Query("SELECT * FROM posts WHERE user_id = ?", user_id)
+	if err != nil {
+		fmt.Println("Error getting posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+func LikePosts(post_id string, user_id string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// Insertion d'un like
+	_, err = db.Exec("INSERT INTO likes (post_id, user_id) VALUES (?, ?)", post_id, user_id)
+	if err != nil {
+		fmt.Println("Error liking post:", err)
+		return
+	}
+}
+func UnlikePosts(post_id string, user_id string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// Suppression d'un like
+	_, err = db.Exec("DELETE FROM likes WHERE post_id = ? AND user_id = ?", post_id, user_id)
+	if err != nil {
+		fmt.Println("Error unliking post:", err)
+		return
+	}
+}
+func GetLikes(post_id string) []string {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []string{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les likes d'un post
+	rows, err := db.Query("SELECT user_id FROM likes WHERE post_id = ?", post_id)
+	if err != nil {
+		fmt.Println("Error getting likes:", err)
+		return []string{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de likes
+	var allLikes []string
+	for rows.Next() {
+		var like string
+		err = rows.Scan(&like)
+		if err != nil {
+			fmt.Println("Error scanning like:", err)
+			return []string{}
+		}
+		allLikes = append(allLikes, like)
+	}
+	return allLikes
+}
