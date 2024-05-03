@@ -165,33 +165,3 @@ func UnlikePosts(post_id string, user_id string) {
 		return
 	}
 }
-func GetLikes(post_id string) []string {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return []string{}
-	}
-	defer db.Close()
-
-	// Recherche de tous les likes d'un post
-	rows, err := db.Query("SELECT user_id FROM likes WHERE post_id = ?", post_id)
-	if err != nil {
-		fmt.Println("Error getting likes:", err)
-		return []string{}
-	}
-	defer rows.Close()
-
-	// Crée un tableau de likes
-	var allLikes []string
-	for rows.Next() {
-		var like string
-		err = rows.Scan(&like)
-		if err != nil {
-			fmt.Println("Error scanning like:", err)
-			return []string{}
-		}
-		allLikes = append(allLikes, like)
-	}
-	return allLikes
-}

@@ -23,7 +23,7 @@ func main() {
 		return
 	}
 	// Create a table for forum posts
-	_, err = db.Exec("CREATE TABLE posts (post_id INTEGER PRIMARY KEY, title TEXT, content TEXT, user_id TEXT, created_at TEXT, updated_at TEXT, deleted_at TEXT, status TEXT)")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS posts (post_id INTEGER PRIMARY KEY, title TEXT, userlike TEXT, content TEXT, user_id TEXT, created_at TEXT, updated_at TEXT, deleted_at TEXT, status TEXT)")
 	if err != nil {
 		fmt.Println("Error creating table:", err)
 		return
