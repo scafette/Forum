@@ -1,4 +1,4 @@
-package main
+package forum
 
 import (
 	"database/sql"
@@ -37,7 +37,7 @@ func CreatePost(title string, content string, user_id string) {
 	defer db.Close()
 
 	// cherche le temps pour la création et/ou update
-	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
 	_, err = db.Exec("INSERT INTO posts (post_id, title, content, user_id, created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)", u2.String(), title, content, user_id, currentTime, currentTime, "published")
@@ -164,4 +164,34 @@ func UnlikePosts(post_id string, user_id string) {
 		fmt.Println("Error unliking post:", err)
 		return
 	}
+}
+func SearchPosts(search string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE title LIKE ? OR content LIKE ?", "%"+search+"%", "%"+search+"%")
+	if err != nil {
+		fmt.Println("Error searching posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
 }
