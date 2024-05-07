@@ -1,4 +1,4 @@
-package main
+package forum
 
 import (
 	"database/sql"
@@ -171,7 +171,6 @@ func UpdateUserRole(userID string, role string) {
 		fmt.Printf("error updating user: %v", err)
 	}
 }
-
 func GetUsers() []user {
 	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sqlite")
