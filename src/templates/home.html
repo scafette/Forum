@@ -8,51 +8,47 @@
         background-image: url("https://images.unsplash.com/photo-1490818387583-1baba5e638af?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
         background-size:cover;
         background-position: center;
-        
-        
     }
 
     .header {
         background-color: rgb(28, 28, 28);
         width  : 100vw;
         height : 150px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .logo {
-        position: absolute;
-        top: 5%;
-        left: 3%;
+        position: relative;
     }
-    .footer {
-        position: absolute;
-        bottom: 0%;
+    footer {
+        position: relative;
         background-color: rgb(28, 28, 28);
         width  : 100vw;
-        height : 200px;
-        
+        height : 2000px;
+        top: 600px;
     }
     .backgroundfood {
         margin: 0;
         padding: 0;
-        box-shadow: rgb(28, 28, 28) 10px 10px 40px, rgb(28, 28, 28) 0px 0px 0px 8px;
         display: flex;
         align-items:center;
         justify-content:center;
     }
     .backgroundfood h1 {
-        position: absolute;
-        bottom :60vh ;
-        right: 15vh;
+        position: relative;
+        top: 60px;
+        left: 450px;
         color: rgb(28, 28, 28);
-        font-size: 60px;
+        font-size: 80px;
         font-family: Arial, sans-serif;
         letter-spacing: 4px;
-        box-shadow: inset 0 0 0 3px rgb(110, 11, 11);
+        box-shadow: inset 0 0 0 3px rgb(110, 11, 11);*/
     }
     .backgroundfood button {
-        position: absolute;
-        bottom :48vh ;
-        right: 40vh;
+        position: relative;
+        top: 400px;
         border: 3px solid rgb(110, 11, 11);
         border-radius: 45px;
         transition: all 0.3s;
@@ -72,12 +68,10 @@
         align-items: center;
         justify-content: flex-end;
         position: relative;
-        top : 7vh;
+        right: 50px;
     }
     .login {
-        position: absolute;
-        top: 0vh;
-        right: 32vh;
+        position: relative;
         background-color: rgb(28, 28, 28);
         color: white;
         font-size: 1.5em;
@@ -94,9 +88,7 @@
         font-size: 1.7em;
     }
     .home {
-        position: absolute;
-        top: 0vh;
-        right: 20vh;
+        position: relative;
         background-color: rgb(28, 28, 28);
         color: white;
         font-size: 1.5em;
@@ -113,9 +105,7 @@
         font-size: 1.7em;
     }
     .categories {
-        position: absolute;
-        top: 0vh;
-        right: 2vh;
+        position: relative;
         background-color: rgb(28, 28, 28);
         color: white;
         font-size: 1.5em;
@@ -132,6 +122,55 @@
         font-size: 1.7em;
     }
 
+    .Plat1 {
+        position: relative;
+    }
+
+    .Ul {
+        position: relative;
+        color: white;
+        font-size: 44px;
+    }
+
+    .Thailande {
+        position: relative;
+        color: white;
+        font-size: 34px;
+        text-align: center;
+        width: 1000px;
+        height: 100px;
+    }
+
+    .Plat2 {
+        position: relative;
+    }
+
+    .Italie {
+        position: relative;
+        color: white;
+        font-size: 34px;
+        text-align: center;
+        width: 1000px;
+        height: 100px;
+    }
+
+    .Plat3 {
+        position: relative;
+        
+    }
+
+    .Mexique {
+        position: relative;
+        color: white;
+        font-size: 34px;
+        text-align: center;
+        width: 1000px;
+        height: 100px;
+    }
+
+    
+
+    
 </style>
 <!DOCTYPE html>                                    
 <html>
@@ -152,10 +191,15 @@
         </button>
         
     </div>
+    
 </body>
     <footer>
         <div class="footer">
+            
         </div>
+        
+       
+
     </footer>
 
 </html>
