@@ -4,49 +4,61 @@
     body {
         margin: 0;
         padding: 0;
-        background-color: rgb(70, 53, 53);
-        background-image: url("https://images.unsplash.com/photo-1490818387583-1baba5e638af?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        background-size:cover;
-        background-position: center;
+        
     }
 
     .header {
-        background-color: rgb(28, 28, 28);
-        width  : 100vw;
-        height : 150px;
+        background-color: rgb(0, 0, 0);
+        width  : 99.1vw;
+        height : 170px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        
     }
 
-    .logo {
-        position: relative;
-    }
-    footer {
-        position: relative;
-        background-color: rgb(28, 28, 28);
-        width  : 100vw;
-        height : 2000px;
-        top: 600px;
-    }
-    .backgroundfood {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items:center;
-        justify-content:center;
-    }
-    .backgroundfood h1 {
-        position: relative;
-        top: 60px;
-        left: 450px;
-        color: rgb(28, 28, 28);
-        font-size: 80px;
-        font-family: Arial, sans-serif;
-        letter-spacing: 4px;
-        box-shadow: inset 0 0 0 3px rgb(110, 11, 11);
-    }
-    .backgroundfood button {
+    .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: black;
+            height: 170px;
+        }
+
+        nav img {
+            width: 100px;
+        }
+
+        nav ul {
+            position: relative;
+            right: -1500px;
+            display: flex;
+            list-style-type: none;
+            font-size: 30px;
+            top: -50px;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            
+        }
+
+        footer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            top: 731px;
+        }
+
+        .backgroundfood button {
         position: relative;
         top: 400px;
         border: 3px solid rgb(110, 11, 11);
@@ -58,149 +70,89 @@
         font-weight: 550;
         font-family: 'Montserrat', sans-serif;
     }
-    
+
+    .backgroundfood h1 {
+        position: relative;
+        top: 60px;
+        left: 450px;
+        color: rgb(28, 28, 28);
+        font-size: 80px;
+        font-family: Arial, sans-serif;
+        letter-spacing: 4px;
+        box-shadow: inset  0 0 5px rgb(0, 0, 0);
+    }
+
     .backgroundfood button:hover {
         background: rgb(28, 28, 28);
         color: rgb(180, 180, 180);             
     }
-    .navbar {
-        display : flex;
-        align-items: center;
-        justify-content: flex-end;
-        position: relative;
-        right: 50px;
-    }
-    .login {
-        position: relative;
-        background-color: rgb(28, 28, 28);
-        color: white;
-        font-size: 1.5em;
-        font-weight: 550;
-        font-family: 'Montserrat', sans-serif;
-        border: none;
-        border-radius: 45px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    .login:hover {
-        background: #020202;
-        color: white;
-        font-size: 1.7em;
-    }
-    .home {
-        position: relative;
-        background-color: rgb(28, 28, 28);
-        color: white;
-        font-size: 1.5em;
-        font-weight: 550;
-        font-family: 'Montserrat', sans-serif;
-        border: none;
-        border-radius: 45px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    .home:hover {
-        background: #020202;
-        color: white;
-        font-size: 1.7em;
-    }
-    .categories {
-        position: relative;
-        background-color: rgb(28, 28, 28);
-        color: white;
-        font-size: 1.5em;
-        font-weight: 550;
-        font-family: 'Montserrat', sans-serif;
-        border: none;
-        border-radius: 45px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    .categories:hover {
-        background: #020202;
-        color: white;
-        font-size: 1.7em;
+
+    .backgroundfood {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items:center;
+        justify-content:center;
     }
 
-    .YEAAAAH {
+    .logo {
         position: relative;
-        top: 100px;
-        box-shadow: inset 0 0 0 3px rgb(233, 232, 232);
-        height: 400px;
+        top: 30px;
+        left: 50px;
+        width: 0px;
     }
 
-    .YEAAAAH2 {
-        position: relative;
-        top: 200px;
-        box-shadow: inset 0 0 0 3px rgb(233, 232, 232);
-        height: 400px;
-    }
+.slider-1 {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #f1f1f1;
+}
+.slider-1 .slider {
+  animation: slider-1 50s infinite ease-in-out;
+  display: flex;
 
-    .YEAAAAH3 {
-        position: relative;
-        top: 300px;
-        box-shadow: inset 0 0 0 3px rgb(233, 232, 232);
-        height: 400px;
-    }
+  /* Si on veut faire glisser vers la droite */
+  /* Il faut aussi changer l'animation(transform) en valeurs positives */
+  /* flex-direction: row-reverse; */
+}
+.slider-1 p {
+  flex-shrink: 0;
+  padding: 72px 0;
+  width: 100%;
+  text-align: center;
+  font-size: 45px;
+  color: #f1f1f1;
+}
 
-    .Plat1 {
-        position: relative;
-        top: -1560px;
-        right: 1050px;
-    }
 
-    .Ul {
-        position: relative;
-        color: white;
-        font-size: 44px;
-    }
+/* 
+   5% par transition, nombre choisi arbitrairement.
 
-    .Thailande {
-        position: relative;
-        top: 50px;
-        right: -900px;
-        color: white;
-        font-size: 34px;
-        text-align: center;
-        width: 1000px;
-        height: 100px;
-    }
+   reste divisé par nb de pauses
+   80(%) / 4 = 20(%) par pause
+*/
 
-    .Plat2 {
-        position: relative;
-        top: -1360px;
-        right: -200px;
-    }
-
-    .Italie {
-        position: relative;
-        top: 100px;
-        color: white;
-        font-size: 34px;
-        text-align: center;
-        width: 1000px;
-        height: 100px;
-    }
-
-    .Plat3 {
-        position: relative;
-        top: -1160px;
-        right: 650px;
-        
-    }
-
-    .Mexique {
-        position: relative;
-        top: 100px;
-        right: -900px;
-        color: white;
-        font-size: 34px;
-        text-align: center;
-        width: 1000px;
-        height: 100px;
-    }
-
-    
+@keyframes slider-1 {
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+  25%,
+  45% {
+    transform: translateX(-100%);
+  }
+  50%,
+  70% {
+    transform: translateX(-200%);
+  }
+  75%,
+  95% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+} 
 
     
 </style>
@@ -208,82 +160,35 @@
 <html>
 <body>
     <div class="header">
-        <div class="logo">
-            <img src="../style/img/loooooogooooooooo.PNG"width="240px">
-        </div>
-        <div class="navbar">
-            <button class="login">Connexion</button>
-            <button class="home">Acceuil</button>
-            <button class="categories">Catégories</button>
-        </div>
+        <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
+            <div class="logo">
+                <img src="logo.png" alt="logo" style="width: 370px;">
+            </div>
+                
+            <ul>
+                <li><a href="home.html">Acceuil</a></li>
+                <li><a href="login.html">Connexion</a></li>
+                <li><a href="categories.html">Catégories</a></li>
+            </ul>
+        </nav>
     </div>
-    <div class="backgroundfood">
-        <h1>Bienvenue sur imCOOKED</h1>
-        <button>Voir les Catégories</button> 
-        </button>
-        
+
+
+ <!-- Horizontal -->
+ <div class="slider-container slider-1">
+    <div class="slider">
+      <p><img src="backgroundfood.jpg" alt="logo" style="width: 1070px; height: 800px";></p>
+      <p><img src="backgroundfood.jpg" alt="logo" style="width: 370px;"></p>
+      <p><img src="backgroundfood.jpg" alt="logo" style="width: 370px;"></p>
+      <p><img src="backgroundfood.jpg" alt="logo" style="width: 370px;"></p>
+      <p><img src="backgroundfood.jpg" alt="logo" style="width: 370px;"></p>
     </div>
+  </div>
+
     
 </body>
-    <footer>
-        <div class="footer">
-            
-        </div>
-
-        <div class="Ul">
-            <ul>
-                <p>Les 5 Meilleurs Plats Du Monde</a>
-            </ul>
-        </div>
-       
-        <div class="YEAAAAH"> 
-        <div class="Thailande">
-            <ul>
-                <p>1. Le curry Massaman, Thaïlande
-                    Aussi appelé le « roi des currys », 
-                    c’est le seul curry thaïlandais qui n’est jamais préparé avec du porc.
-                    Épicé, aux notes de coco, doux et savoureux, sa combinaison de saveurs lui confère une réelle personnalité ! 
-                    Alors… Qu’attendez-vous pour réserver votre vol pour la Thaïlande et goûter à celui qui a été élu plat préféré au monde ?!</a>
-            </ul>
-        </div>
-        </div>
-
-        <div class="YEAAAAH2">
-        <div class="Italie">
-            <ul>
-                <p>2. La pizza napolitaine, Italie
-                    Ce n’est pas n’importe quelle pizza qui a été élue parmi les meilleurs plats au monde, 
-                    mais bien la pizza napolitaine ! Mais attention, il faut voyager à Naples pour goûter à la vraie version, 
-                    celle cuisinée selon la tradition napolitaine. D’ailleurs, en 2009, la Communauté Européenne a donné un label à la pizza napolitaine afin de protéger son appellation !</a>
-            </ul>
-        </div>
-        </div>
-
-        <div class="YEAAAAH3">
-        <div class="Mexique">
-            <ul>
-                <p>3. Le chocolat du Mexique
-                    Une chose est sûre, le chocolat met tout le monde d’accord ! 
-                    Ce n’est pas un hasard si celui produit au Mexique arrive en troisième position de ce classement des meilleurs plats au monde. 
-                    Avec sa texture et ses saveurs bien particulières, le chocolat mexicain remporte tous les suffrages auprès des grands gourmands.</a>
-            </ul>
-        </div>
-            
-
-        <div class="Plat1">
-            <img src="https://www.liligo.fr/magazine-voyage/wp-content/uploads/sites/42/2017/08/curry-Massaman.jpg" alt="Curry Massaman">
-        </div>
-
-        <div class="Plat2">
-            <img src="https://www.liligo.fr/magazine-voyage/wp-content/uploads/sites/42/2017/08/Pizza-Napolitaine-iStock.jpg" alt="Pizza Napolitaine">
-        </div>
-
-        <div class="Plat3">
-            <img src="https://www.liligo.fr/magazine-voyage/wp-content/uploads/sites/42/2017/08/Chocolat-du-Mexique-iStock.jpg" alt="Chocolat du Mexique">
-        </div>
-
-        
-    
-    </footer>
+<footer style="background-color: black; color: white; padding: 20px;">
+    © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
+</footer>
 
 </html>
