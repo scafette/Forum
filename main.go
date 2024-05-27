@@ -57,7 +57,7 @@ func main() {
 
 func Serveur() {
 	openLink()
-	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("./src/styles"))))
+	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("./src/styles"))))
 	http.HandleFunc("/accueil", forum.HomePage)
 	http.HandleFunc("/login", forum.LoginPage)
 
