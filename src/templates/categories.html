@@ -4,6 +4,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;            
         }
         
         nav {
@@ -50,7 +52,8 @@
         top: 0vh;
         right: -0vw;
         width: 99.1vw;
-        height: 90vh;
+        height: 104vh;
+        overflow: hidden;
     }
 
     .entre {
@@ -79,21 +82,30 @@
     }
 
     .entre button {
-	width:200px;
-	height:200px;
+    position: relative;
+    top: -0.5vh;
+    left: -13.8vw;
+	width:640px;
+	height:1016px;
 	background:rgba(0, 102, 153, 0);
 
     }
 
     .Plats button {
-    width:200px;
-    height:200px;
+    position: relative;
+    left: -13.5vw;
+    top: -76vh;
+    width:654px;
+    height:1076px;
     background:rgba(0, 102, 153, 0);
     }
 
     .Desserts button {
-    width:200px;
-    height:200px;
+    position: relative;
+    top: -163.5vh;
+    left: -11.3vw;
+    width:640px;
+    height:1016px;
     background:rgba(0, 102, 153, 0);
     }
 
@@ -114,27 +126,26 @@
             </ul>
         </nav>
     </div>
-        <div class="EPD">
+    <div class="EPD">
         <img src="https://media.achat-ville.com/uploads/chalon/Produit/68/prod_photo1_33561_1609164536.jpg" width="100%">
            
-        <div class="entre">
-            <button><h1>Entrées</h1>
-           </button>
-        </div>
-
-        <div class="Plats">
-            <button><h1>Plats</h1>
+            <div class="entre">
+                <button onclick="window.location.href='entrer.html'"><h1>Entrées</h1>
             </button>
-        </div>
+            </div>
 
-        <div class="Desserts">
-            <button><h1>Desserts</h1>
-            </button>
-        </div>
+            <div class="Plats">
+                <button onclick="window.location.href='plat.html'"><h1>Plats</h1>
+                </button>
+            </div>
+
+            <div class="Desserts">
+                <button onclick="window.location.href='dessert.html'"><h1>Desserts</h1></button>
+            </div>
     </div>
 
 </body>
-<footer style="background-color: black; color: white; padding: 20px;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -5vh;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 
