@@ -10,6 +10,10 @@ import (
 var Home = template.Must(template.ParseFiles("./src/templates/home.html"))
 var HomeConnected = template.Must(template.ParseFiles("./src/templates/home.html"))
 var Connection = template.Must(template.ParseFiles("./src/templates/login.html"))
+var Categories = template.Must(template.ParseFiles("./src/templates/categories.html"))
+var Dessert = template.Must(template.ParseFiles("./src/templates/dessert.html"))
+var Plat = template.Must(template.ParseFiles("./src/templates/plat.html"))
+var Entrer = template.Must(template.ParseFiles("./src/templates/entrer.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -48,6 +52,42 @@ func LoginPage(w http.ResponseWriter, r *http.Request) {
 func LogoutPage(w http.ResponseWriter, r *http.Request) {
 	p := ""
 	err := Home.ExecuteTemplate(w, "logout.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func CategoriesPage(w http.ResponseWriter, r *http.Request) {
+
+	p := ""
+	err := Categories.ExecuteTemplate(w, "categories.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func DessertPage(w http.ResponseWriter, r *http.Request) {
+
+	p := ""
+	err := Dessert.ExecuteTemplate(w, "dessert.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func PlatPage(w http.ResponseWriter, r *http.Request) {
+
+	p := ""
+	err := Plat.ExecuteTemplate(w, "plat.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func EntrerPage(w http.ResponseWriter, r *http.Request) {
+
+	p := ""
+	err := Entrer.ExecuteTemplate(w, "entrer.html", p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

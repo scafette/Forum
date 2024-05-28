@@ -60,6 +60,10 @@ func Serveur() {
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("./src/styles"))))
 	http.HandleFunc("/accueil", forum.HomePage)
 	http.HandleFunc("/login", forum.LoginPage)
+	http.HandleFunc("/categories", forum.CategoriesPage)
+	http.HandleFunc("/dessert", forum.DessertPage)
+	http.HandleFunc("/entrer", forum.EntrerPage)
+	http.HandleFunc("/plat", forum.PlatPage)
 
 	http.ListenAndServe(":2727", nil)
 }
