@@ -35,6 +35,14 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func RegisterPage(w http.ResponseWriter, r *http.Request) {
+	p := ""
+	err := Connection.ExecuteTemplate(w, "register.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func LoginPage(w http.ResponseWriter, r *http.Request) {
 
 	mail := r.FormValue("mail") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
