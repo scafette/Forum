@@ -8,11 +8,51 @@
             background-image: url("https://images.unsplash.com/photo-1556139930-c23fa4a4f934?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
         }
 
+        .header {
+        background-color: rgb(0, 0, 0);
+        height : 170px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;     
+        }
+
+    .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: black;
+            height: 170px;
+        }
+
+        nav img {
+            width: 100px;
+        }
+
+        nav ul {
+            position: relative;
+            right: -1500px;
+            display: flex;
+            list-style-type: none;
+            font-size: 30px;
+            top: -50px;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            
+        }
+
         .container {
             max-width: 400px;
             margin: 0 auto;
             padding: 50px;
-            background-color: #090909;
+            background-color: #090909c3;
             border-radius: 5px;
             box-shadow: 0 25px 15px rgba(0, 0, 0, 0.1);
         }
@@ -53,6 +93,20 @@
     </style>
 </head>
 <body>
+<header>
+    <div class="header">
+        <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
+            <div class="logo">
+                <img src="../../styles/img/logo.png" alt="logo" style="width: 370px;">
+            </div>
+            <ul>
+                <li><a href="/home">Acceuil</a></li>
+                <li><a href="/login">Connexion</a></li>
+                <li><a href="/categories">CatÃ©gories</a></li>
+          </ul>
+      </nav>
+  </div>
+</header>
     <div class="container">
         <h1>Connexion</h1>
         <form>
