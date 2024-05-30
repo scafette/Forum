@@ -81,80 +81,34 @@ body {
 }
 .rectangle  {
     position: relative;
-    top: 100px;
-    left: 115px;
+    left: 5.5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: wrap;
 	width:1800px;
-	height:500px;
+	min-height: 600px;
 	background:rgb(0, 0, 0);
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
     
 }
-
-.post1 {
-    position: relative;
-    top: 60px;
-    left: 50px;
+.rectangle img {
+    min-height: 400px;
+    min-width: auto;
     border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
+}
+
+.post {
+    position: relative;
+    overflow: hidden;
     width: 500px;
+    height: 500px;
+
 }
 
-.post2 {
-    position: relative;
-    top: -255px;
-    left: 650px;
-    border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
-    width: 500px;
-}
-
-.post3 {
-    position: relative;
-    top: -600px;
-    left: 1250px;
-    border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
-    width: 500px;
-}
-
-.rectangle2 {
-    position: relative;
-    top: 400px;
-    left: 115px;
-	width:1800px;
-	height:500px;
-	background:rgb(0, 0, 0);
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border-radius: 10px;
-}
-
-.post4 {
-    position: relative;
-    top: 50px;
-    left: 50px;
-    border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
-    width: 500px;
-}
-
-.pos5 {
-    position: relative;
-    top: -275px;
-    left: 650px;
-    border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
-    width: 500px;
-}
-
-.pos6 {
-    position: relative;
-    top: -580px;
-    left: 1250px;
-    border-radius: 10px;
-    box-shadow: 0 15px 15px rgb(255, 255, 255);
-    width: 500px;
-}
 
 </style>
 <!DOCTYPE html>                                    
@@ -181,46 +135,15 @@ body {
 
 </div>
 <div class="rectangle">
-<div class="post1">
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/Canard-C3A0-lorange-navets.png" alt="Button Image" class="button-image" style="width: 500px;">
-    </a>
+    {{ range .Posts}}
+    <h2>{{.Titre}}</h2>
+    <div class="post">
+        <a href="/post/{{.Post_id}}">
+            <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
+        </a>
+    </div>
+    {{end}}
 </div>
-<div class="post2">
-
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/Ravioli.png" alt="Button Image" class="button-image" style="width: 500px;">
-    </a>
-</div>
-<div class="post3">
-
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/ddaaebc0-028c-4c3c-b409-281d03dcfe19.png" alt="Button Image" class="button-image" style="width: 500px; height: 380px;">
-    </a>
-</div>
-</div>
-
-</div>
-<div class="rectangle2">
-<div class="post4">
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/PAELLA.jpg" alt="Button Image" class="button-image" style="width: 500px;">
-    </a>
-</div>
-<div class="pos5">
-
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/recette-pates-carbonara.png" alt="Button Image" class="button-image" style="width: 500px;">
-    </a>
-</div>
-<div class="pos6">
-
-    <a href="/tiramisu-speculoos">
-        <img src="../styles/img/Plats/Margherita.png" alt="Button Image" class="button-image" style="width: 500px; height: 380px;">
-    </a>
-</div>
-</div>
-
 
 </body>
 <footer style="background-color: black; color: white; padding: 20px; margin-top: 9%;">
