@@ -47,35 +47,45 @@ body {
             text-decoration: none;
             
         }
-
-        footer {
+            
+        .logo {
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            top: 731px;
+            top: 30px;
+            left: 50px;
+            width: 0px;
         }
 
-  
-
-    .logo {
-        position: relative;
-        top: 30px;
-        left: 50px;
-        width: 0px;
-    }
 
 
+        ::-webkit-scrollbar {
+        display: none;
+        }
+        .img4 {
+        width: 100vw;
+        }
+        .trait1 {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            background: rgba(255, 255, 255, 0.918);
+            width:800px;
+            height:950px;
+            border: 1em solid;
+            
+        }
+        .avatar {
+            position: relative;
+            display: flex;
+            align-items:center;
+            justify-content:center;
+        }
+        menu h1{
 
-::-webkit-scrollbar {
-  display: none;
-}
-.img4 {
-  width: 100vw;
-}
-
-
+            position: relative;
+            display: flex;
+            align-items:center;
+            justify-content:center;
+        }
 
 </style>
 <!DOCTYPE html>                                    
@@ -97,13 +107,28 @@ body {
       </nav>
      
   </div>
-
+    <div class="trait1">
+        <div class="avatar">
+            <img src="../../styles/img/avatar.png" alt="logo" style="width: 250px;">
+        </div>
+        <div class="menu">
+            <form class="form" method = "post">
+                <h1>Information du Compte</h1><br><br>
+                <label for="username">Nom d'utilisateur:</label>
+                <button type="button" onclick="changeUsername()">Modifier</button>
+                <input type="text" id="username" name="username"value ="{{.UserSession.Username}}"disabled><br><br>
+                <label for="password">Mot de passe:</label>
+                <button type="button" onclick="changePassword()">Modifier</button>
+                <input type="password" id="password" name="password"value="••••••••••••••••"disabled><br><br>
+                <input type="submit" value="Enregistrer" onclick="enableAll()">
+            </form>
+        </div>
+    </div>
 </div>
 
 
+
+
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: 9%;">
-    © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
-</footer>
 
 </html>

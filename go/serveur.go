@@ -16,6 +16,7 @@ var Plat = template.Must(template.ParseFiles("./src/templates/plat.html"))
 var Entrer = template.Must(template.ParseFiles("./src/templates/entrer.html"))
 var profile = template.Must(template.ParseFiles("./src/templates/profile.html"))
 var postcreate = template.Must(template.ParseFiles("./src/templates/postcreate.html"))
+var Register = template.Must(template.ParseFiles("./src/templates/register.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {

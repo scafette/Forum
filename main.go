@@ -66,6 +66,7 @@ func Serveur() {
 	http.HandleFunc("/plat", forum.PlatPage)
 	http.HandleFunc("/profile", forum.ProfilePage)
 	http.HandleFunc("/postcreate", forum.PostCreatePage)
+	http.HandleFunc("/register", forum.RegisterPage)
 
 	http.ListenAndServe(":2727", nil)
 }
