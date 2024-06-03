@@ -35,7 +35,7 @@ body {
             display: flex;
             list-style-type: none;
             font-size: 30px;
-            top: -50px;
+            top: -40px;
         }
 
         nav ul li {
@@ -43,6 +43,26 @@ body {
         }
 
         nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            
+        }
+
+        nav ul2 {
+            position: relative;
+            right: -900px;
+            display: flex;
+            list-style-type: none;
+            font-size: 30px;
+            top: -120px;
+            width: 300px;
+        }
+
+        nav ul2 li {
+            margin: 0 10px;
+        }
+
+        nav ul2 li a {
             color: rgb(255, 255, 255);
             text-decoration: none;
             
@@ -80,7 +100,14 @@ body {
 
     .logo {
         position: relative;
-        top: 30px;
+        top: 50px;
+        left: 50px;
+        width: 0px;
+    }
+
+    .logo-post {
+        position: relative;
+        top: -100px;
         left: 50px;
         width: 0px;
     }
@@ -131,6 +158,8 @@ body {
 .img4 {
   width: 100vw;
 }
+
+
     
 </style>
 <!DOCTYPE html>                                    
@@ -152,6 +181,10 @@ body {
         <ul2>
           <li><a href="/postcreate">Crée un post</a></li>
         </ul2>
+        <div class="logo-post">
+          <img src="../../src/styles/img/post.png" alt="logo" style="width: 50px;">
+        </div>
+
       </nav>
   </div>
 
