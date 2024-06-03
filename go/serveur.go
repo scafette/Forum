@@ -14,6 +14,7 @@ var Categories = template.Must(template.ParseFiles("./src/templates/categories.h
 var Dessert = template.Must(template.ParseFiles("./src/templates/dessert.html"))
 var Plat = template.Must(template.ParseFiles("./src/templates/plat.html"))
 var Entrer = template.Must(template.ParseFiles("./src/templates/entrer.html"))
+var profile = template.Must(template.ParseFiles("./src/templates/profile.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -96,6 +97,15 @@ func EntrerPage(w http.ResponseWriter, r *http.Request) {
 
 	p := ""
 	err := Entrer.ExecuteTemplate(w, "entrer.html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func ProfilePage(w http.ResponseWriter, r *http.Request) {
+
+	p := ""
+	err := profile.ExecuteTemplate(w, "profile.html", p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
