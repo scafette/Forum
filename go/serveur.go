@@ -38,6 +38,12 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
+		mdp := r.FormValue("mdp")           // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
+
+		println(username, mdp) // AFFICHE DANS LA CONSOLE
+	}
 	p := ""
 	err := Register.ExecuteTemplate(w, "register.html", p)
 	if err != nil {

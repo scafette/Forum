@@ -1,6 +1,6 @@
 
 body {
-    background: url();
+    background: url  ();
     margin: 0;
     padding: 0;
     display: flex;
@@ -177,7 +177,7 @@ body {
                 text-decoration: underline overline rgb(252, 70, 100);
             }
 
-            
+
             .gifvideo {
                 width: 100vw;
                 height: 100vh;
