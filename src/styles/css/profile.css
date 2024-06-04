@@ -13,6 +13,15 @@ body {
     justify-content: space-between;
     align-items: center;     
   }
+
+   footer {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100px;
+              top: 731px;
+          }
   
       .nav {
               display: flex;
@@ -55,9 +64,9 @@ body {
   
   
   
-          ::-webkit-scrollbar {
+          /*::-webkit-scrollbar {
           display: none;
-          }
+          }*/
           .img4 {
           width: 100vw;
           }
@@ -77,5 +86,82 @@ body {
               align-items:center;
               justify-content:center;
           }
+
+            .parametre {
+                position: relative;
+                top: -920px;
+                left: 1150px;
+                width: 30%;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .parametre button {
+                border: none;
+                background-color: transparent;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+
+            }
+
+            .trait2 {
+                position: relative;
+                top: -950px;
+                left: 1000px;
+                border-top: 1px solid #000;
+                width : 910px;
+            }
+
+            .PUBLICATION-IMG {
+                position: relative;
+                top: -917.5px;
+                left: 1130px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .PUBLICATION-IMG img {
+                width: 30px;
+                height: 20px;
+            }
+
+            .LIKE-IMG {
+                position: relative;
+                top: -926px;
+                left: 1410px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .LIKE-IMG img {
+                width: 40px;
+                height: 30px;
+            }
+
+            .DISLIKE-IMG {
+                position: relative;
+                top: -918px;
+                left: 1639px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .DISLIKE-IMG img {
+                width: 35px;
+                height: 25px;
+            }
+
+
   
   
