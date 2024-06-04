@@ -103,8 +103,8 @@ body {
         }
         .boutton1 {
             position: relative;
-            top: 150px;
-            left: 200px;
+            top: 10px;
+            left: 230px;
             display: inline-block;
             padding: 0.9rem 1.8rem;
             font-size: 16px;
@@ -146,14 +146,15 @@ body {
             color: rgb(0, 0, 0);
             border: 3px solid rgb(252, 70, 100);
             width: 400px;
+            height: 150px;
             position: relative;
-            top: 100px;
+            top: 30px;
            }
             
             input {
                 
                 position: relative;
-                top: 100px;
+                top: 20px;
             }
 
             select {
@@ -164,6 +165,20 @@ body {
                 color: rgb(0, 0, 0);
                 border: 3px solid rgb(252, 70, 100);
                 position: relative;
-                top: 140px;
+                top: 60px;
                 right: 150px;
             }
+            form h1 {
+                color: white;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: underline overline rgb(252, 70, 100);
+            }
+
+            
+            .gifvideo {
+                width: 100vw;
+                height: 100vh;
+              }
