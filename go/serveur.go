@@ -1,7 +1,6 @@
 package forum
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -40,18 +39,19 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
 	p := ""
-	err := Connection.ExecuteTemplate(w, "register.html", p)
+	err := Register.ExecuteTemplate(w, "register.html", p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
+		mdp := r.FormValue("mdp")           // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
 
-	mail := r.FormValue("mail") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
-	mdp := r.FormValue("mdp")   // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
-
-	fmt.Println(mail, mdp)
+		Login(username, mdp) // APPEL DE LA FONCTION LOGIN (voir compte.go)
+	}
 
 	p := ""
 	err := Connection.ExecuteTemplate(w, "login.html", p)
