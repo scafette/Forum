@@ -24,7 +24,7 @@ var ConnectedUser user
 
 func Signup(name string, password string, role string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
@@ -41,7 +41,7 @@ func Signup(name string, password string, role string) {
 }
 func Login(name string, password string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}

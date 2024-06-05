@@ -20,6 +20,7 @@ var Entrer = template.Must(template.ParseFiles("./src/templates/entrer.html"))
 var profile = template.Must(template.ParseFiles("./src/templates/profile.html"))
 var postcreate = template.Must(template.ParseFiles("./src/templates/postcreate.html"))
 var Register = template.Must(template.ParseFiles("./src/templates/register.html"))
+var ErreurRegister = template.Must(template.ParseFiles("./src/templates/erreurregister.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -43,11 +44,21 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
-		mdp := r.FormValue("mdp")           // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
+	if r.Method == http.MethodPost {
+		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANSnammmmmmmmmmmeeeeeee
+		mdp := r.FormValue("password")      // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
+		mdpConfirm := r.FormValue("confirm-password")
 
-		println(username, mdp) // AFFICHE DANS LA CONSOLE
+		if mdp == mdpConfirm {
+			Signup(username, mdp, "user")
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+		} else {
+			err := ErreurRegister.ExecuteTemplate(w, "erreurregister.html", "")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+			return
+		}
 	}
 	p := ""
 	err := Register.ExecuteTemplate(w, "register.html", p)
@@ -57,7 +68,7 @@ func RegisterPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginPage(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	if r.Method == http.MethodPost {
 		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MAIL
 		mdp := r.FormValue("mdp")           // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
 
