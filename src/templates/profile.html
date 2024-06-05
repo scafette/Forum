@@ -29,7 +29,16 @@
         <div class="menu">
                 <form class="form" method="post">
                     <h1>Elias</h1>
-
+                    <div class="rectangle">
+                        {{ range .Posts}}
+                        <h2>{{.Titre}}</h2>
+                        <div class="post">
+                            <a href="/post/{{.Post_id}}">
+                                <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
+                            </a>
+                        </div>
+                        {{end}}
+                    </div>
             </form>
         </div>
     </div>
