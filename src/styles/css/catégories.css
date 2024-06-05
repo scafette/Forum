@@ -90,39 +90,47 @@ align-items: center;
 color: #ffffff;
 }
 
-.entrer3 {
+.button_entrer {
 position: absolute;
-top: 40vh;
-left: 15vw;
+top: 50vh;
+left: 16vw;
 color: #ffffff;
 font-size: 50px;
 font-family: 'Roboto', sans-serif;
 -webkit-text-stroke-width: 1px;
 -webkit-text-stroke-color: black;
+background-color: transparent;
+cursor: pointer;
+border: none;
 }
 
-.plat3 {
+.button_plat {
 position: absolute;
-top: 40vh;
-left: 45vw;
+top: 50vh;
+left: 48vw;
 color: #ffffff;
 font-size: 50px;
 font-family: 'Roboto', sans-serif;
 -webkit-text-stroke-width: 1px;
 -webkit-text-stroke-color: black;
+background-color: transparent;
+cursor: pointer;
+border: none;
 
 }
 
-.dessert3 {
+.button_dessert {
 position: absolute;
-top: 40vh;
-left: 70vw;
+top: 50vh;
+left: 78vw;
 color: #ffffff;
 font-size: 50px;
 font-family: 'Roboto', sans-serif;
 -webkit-text-stroke-width: 1px;
 -webkit-text-stroke-color: black;
-
+background-color: transparent;
+cursor: pointer;
+border: none;
 }
 
 .logo5 {
