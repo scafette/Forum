@@ -11,8 +11,6 @@ import (
 type user struct {
 	Customer_id string
 	Name        string
-	Email       string
-	Phone       string
 	Created_at  string
 	Updated_at  string
 	Deleted_at  string

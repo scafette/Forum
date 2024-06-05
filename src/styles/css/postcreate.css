@@ -15,55 +15,54 @@ body {
     align-items: center;     
   }
   
-      .nav {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 0 20px;
-              background-color: black;
-              height: 170px;
-          }
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        background-color: black;
+        height: 170px;
+    }
   
-          nav img {
-              width: 100px;
-          }
+        nav img {
+            width: 100px;
+        }
   
-          nav ul {
-              position: relative;
-              right: -1500px;
-              display: flex;
-              list-style-type: none;
-              font-size: 30px;
-              top: -50px;
-          }
+        nav ul {
+        position: relative;
+        right: -1500px;
+        display: flex;
+        list-style-type: none;
+        font-size: 30px;
+        top: -50px;
+        }
   
-          nav ul li {
-              margin: 0 10px;
-          }
+        nav ul li {
+            margin: 0 10px;
+        }
   
           nav ul li a {
               color: rgb(255, 255, 255);
               text-decoration: none;
               
           }
-  
-          footer {
-              position: relative;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100px;
-              top: 731px;
-          }
-  
+          
+        footer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            top: 731px;
+        }
     
-  
-      .logo {
-          position: relative;
-          top: 30px;
-          left: 50px;
-          width: 0px;
-      }
+
+    .logo {
+        position: relative;
+        top: 30px;
+        left: 50px;
+        width: 0px;
+    }
   
   
   

@@ -24,13 +24,14 @@ var Register = template.Must(template.ParseFiles("./src/templates/register.html"
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
 
-	if ConnectedUser.Email != "" { // SI LUTILISATEUR EST CONNECTÉ
-		p := "Home page pour utilisateur non connecté"
+	if ConnectedUser.Customer_id != "" {
+		p := "Home page pour utilisateur connecté"
 		err := HomeConnected.ExecuteTemplate(w, "home.html", p)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		return
+
 	}
 
 	// SI LUTILISATEUR NEST PAS CONNECTÉ
