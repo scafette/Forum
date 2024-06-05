@@ -10,17 +10,29 @@ import (
 )
 
 type posts struct {
-	post_id    string
-	title      string
-	content    string
-	user_id    string
+	Post_id    string
+	Title      string
+	Userlike   string
+	Content    string
+	User_id    string
 	Created_at string
 	Updated_at string
 	Deleted_at string
 	Status     string
+	Categories string
+	Sub        string
+	Image      string
 }
 
-func CreatePost(title string, content string, user_id string) {
+type Database struct {
+	ConnectedUser user
+	Posts         []posts
+	Post          posts
+	// comment		 []comments
+
+}
+
+func CreatePost(title string, content string, user_id string, categories string, sub string, image string) {
 	// crée le UUID 4 pour le post_id
 	u2, err := uuid.NewRandom()
 	if err != nil {
@@ -40,7 +52,8 @@ func CreatePost(title string, content string, user_id string) {
 	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
-	_, err = db.Exec("INSERT INTO posts (post_id, title, content, user_id, created_at, updated_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)", u2.String(), title, content, user_id, currentTime, currentTime, "published")
+	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleate_at, status, categories,sub, Image) VALUES ( ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image)
 	if err != nil {
 		fmt.Println("Error inserting post:", err)
 		return
@@ -96,13 +109,44 @@ func GetPost(post_id string) posts {
 	// Recherche d'un post
 	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
 	var post posts
-	err = row.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+	err = row.Scan(&post.Post_id, &post.Title, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
 	if err != nil {
 		fmt.Println("Error getting post:", err)
 		return posts{}
 	}
 	return post
 }
+func GetAllPosts() []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts")
+	if err != nil {
+		fmt.Println("Error getting posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+
 func GetPostsByUser(user_id string) []posts {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
@@ -124,7 +168,7 @@ func GetPostsByUser(user_id string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -164,34 +208,4 @@ func UnlikePosts(post_id string, user_id string) {
 		fmt.Println("Error unliking post:", err)
 		return
 	}
-}
-func SearchPosts(search string) []posts {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return []posts{}
-	}
-	defer db.Close()
-
-	// Recherche de tous les posts
-	rows, err := db.Query("SELECT * FROM posts WHERE title LIKE ? OR content LIKE ?", "%"+search+"%", "%"+search+"%")
-	if err != nil {
-		fmt.Println("Error searching posts:", err)
-		return []posts{}
-	}
-	defer rows.Close()
-
-	// Crée un tableau de posts
-	var allPosts []posts
-	for rows.Next() {
-		var post posts
-		err = rows.Scan(&post.post_id, &post.title, &post.content, &post.user_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
-		if err != nil {
-			fmt.Println("Error scanning post:", err)
-			return []posts{}
-		}
-		allPosts = append(allPosts, post)
-	}
-	return allPosts
 }

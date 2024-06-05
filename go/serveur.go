@@ -1,6 +1,7 @@
 package forum
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -84,9 +85,10 @@ func CategoriesPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func DessertPage(w http.ResponseWriter, r *http.Request) {
-
-	p := ""
-	err := Dessert.ExecuteTemplate(w, "dessert.html", p)
+	var datas Database
+	datas.Posts = GetAllPosts()
+	fmt.Println(datas.Posts)
+	err := Dessert.ExecuteTemplate(w, "dessert.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -120,10 +122,21 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostCreatePage(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		categories := r.FormValue("Categories")
+		sub := r.FormValue("sub")
+		image := r.FormValue("image")
+		user_id := ConnectedUser.Customer_id
 
-	p := ""
-	err := postcreate.ExecuteTemplate(w, "postcreate.html", p)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		CreatePost(title, content, user_id, categories, sub, image) // APPEL DE LA FONCTION CREATEPOST (voir post.go)
+	} else {
+		p := ""
+		err := postcreate.ExecuteTemplate(w, "postcreate.html", p)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			http.Redirect(w, r, "/categories", http.StatusSeeOther)
+		}
 	}
 }

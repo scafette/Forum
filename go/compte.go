@@ -93,42 +93,6 @@ func ChangePassword(userID string, newPassword string) {
 		fmt.Printf("error updating password: %v", err)
 	}
 }
-func EmailExist(email string) bool {
-	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
-	if err != nil {
-		fmt.Printf("failed to open database: %v", err)
-	}
-	defer db.Close()
-
-	//cherche de l'email dans la base de données
-	rows, err := db.Query("SELECT * FROM users WHERE email = ?", email)
-	if err != nil {
-		fmt.Printf("error selecting user: %v", err)
-	}
-	defer rows.Close()
-
-	//vérifie si l'email existe
-	return rows.Next()
-}
-func PhoneExist(phone string) bool {
-	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
-	if err != nil {
-		fmt.Printf("failed to open database: %v", err)
-	}
-	defer db.Close()
-
-	//cherche le numéro de téléphone dans la base de données
-	rows, err := db.Query("SELECT * FROM users WHERE phone = ?", phone)
-	if err != nil {
-		fmt.Printf("error selecting user: %v", err)
-	}
-	defer rows.Close()
-
-	//vérifie si le numéro de téléphone existe
-	return rows.Next()
-}
 func Deleteaccount(userID string) {
 	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sqlite")
@@ -170,31 +134,4 @@ func UpdateUserRole(userID string, role string) {
 	if err != nil {
 		fmt.Printf("error updating user: %v", err)
 	}
-}
-func GetUsers() []user {
-	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
-	if err != nil {
-		fmt.Printf("failed to open database: %v", err)
-	}
-	defer db.Close()
-
-	//cherche tous les utilisateurs
-	rows, err := db.Query("SELECT * FROM users")
-	if err != nil {
-		fmt.Printf("error selecting users: %v", err)
-	}
-	defer rows.Close()
-
-	//stocke les utilisateurs dans un tableau
-	var users []user
-	for rows.Next() {
-		var infoUser user
-		err = rows.Scan(&infoUser.Customer_id, &infoUser.Name, &infoUser.Email, &infoUser.Phone, &infoUser.Created_at, &infoUser.Updated_at, &infoUser.Deleted_at, &infoUser.Status, &infoUser.Password, &infoUser.Role, &infoUser.Avatar)
-		if err != nil {
-			fmt.Printf("error scanning user: %v", err)
-		}
-		users = append(users, infoUser)
-	}
-	return users
 }

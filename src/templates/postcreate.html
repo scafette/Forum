@@ -18,9 +18,9 @@
                 <li><a href="/profile">Profil</a></li>
                 <li><a href="/login">Connexion</a></li>
                 <li><a href="/categories">Catégories</a></li>
-          </ul>
-      </nav>
-  </div>
+        </ul>
+    </nav>
+</div>
 
 <div class="test" style="text-align: center;" >
     <h1>CRÉE UN POST</h1>
@@ -29,7 +29,7 @@
 </div>
 
     <div class="post">
-        <form>
+        <form method="post">
             <h1>Partage ta recette !</h1>
                 <input type="text" name="title" placeholder="Title" required>
                 <input type="file" name="image" accept="image/*" required>
@@ -38,16 +38,14 @@
                         <option value="Create">Créer une Catégories</option>
                     </select>
                     <select  placeholder="--Choisir--"  name="food" id="food-select"required>
-                        <option value="Choose">Entrer</option>
-                        <option value="Choose">Plats</option>
-                        <option value="Choose">Desserts</option>
+                        <option value="Entrer">Entrer</option>
+                        <option value="Plats">Plats</option>
+                        <option value="dess*">Desserts</option>
                     </select>
-                <button class="boutton1" type="submit">Create Post</button>
+                <button class="boutton1" type="submit">Créer un Post</button>
         </form>
     </div>
-  
     
-   
 
 </body>
 <footer style="background-color: black; color: white; padding: 20px; margin-top: -8%;">
