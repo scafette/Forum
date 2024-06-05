@@ -74,7 +74,7 @@ body {
             .form {
                 position: relative;
                 top: 150px;
-                left: 320px;
+                left: 310px;
                 font-size: 30px;
                 font-family: 'Roboto', sans-serif;
             }
@@ -119,6 +119,7 @@ body {
                 background-color: transparent;
                 font-size: 20px;
                 font-family: 'Roboto', sans-serif;
+                cursor: pointer;
 
             }
 
@@ -139,6 +140,7 @@ body {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
+                
             }
 
             .PUBLICATION-IMG img {
@@ -155,6 +157,7 @@ body {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
+                
             }
 
             .LIKE-IMG img {
@@ -171,6 +174,7 @@ body {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
+          
             }
 
             .DISLIKE-IMG img {
