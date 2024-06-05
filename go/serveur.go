@@ -3,7 +3,10 @@ package forum
 import (
 	"fmt"
 	"html/template"
+	"io"
+	"mime/multipart"
 	"net/http"
+	"os"
 )
 
 // VARIABLE DES TEMPLATES (PAGE HTML)
@@ -121,22 +124,53 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Fonction pour sauvegarder une image ( relié à la fonction PostCreatePage)
+func saveImage(file multipart.File, header *multipart.FileHeader) (string, error) {
+	// Crée un fichier dans le répertoire souhaité (ici "./images/")
+	dst, err := os.Create("./images/" + header.Filename)
+	if err != nil {
+		return "", err
+	}
+	defer dst.Close()
+
+	// Copie le contenu du fichier téléchargé dans le nouveau fichier
+	if _, err := io.Copy(dst, file); err != nil {
+		return "", err
+	}
+
+	return "./images/" + header.Filename, nil
+}
+
 func PostCreatePage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		categories := r.FormValue("Categories")
 		sub := r.FormValue("sub")
-		image := r.FormValue("image")
 		user_id := ConnectedUser.Customer_id
+		// Récupère le fichier image du formulaire
+		file, handler, err := r.FormFile("image")
+		if err != nil {
+			fmt.Fprintf(w, "Error retrieving file: %v", err)
+			return
+		}
+		defer file.Close()
 
+		// Sauvegarde l'image téléchargée
+		image, err := saveImage(file, handler)
+		if err != nil {
+			fmt.Fprintf(w, "Error saving image: %v", err)
+			return
+		}
 		CreatePost(title, content, user_id, categories, sub, image) // APPEL DE LA FONCTION CREATEPOST (voir post.go)
+		http.Redirect(w, r, "/categories", http.StatusSeeOther)
 	} else {
 		p := ""
 		err := postcreate.ExecuteTemplate(w, "postcreate.html", p)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			http.Redirect(w, r, "/categories", http.StatusSeeOther)
+
 		}
 	}
+
 }

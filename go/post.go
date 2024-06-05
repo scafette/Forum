@@ -52,7 +52,7 @@ func CreatePost(title string, content string, user_id string, categories string,
 	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
-	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleate_at, status, categories,sub, Image) VALUES ( ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories,sub, Image) VALUES ( ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
 		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image)
 	if err != nil {
 		fmt.Println("Error inserting post:", err)
