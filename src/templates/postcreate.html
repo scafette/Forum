@@ -5,9 +5,6 @@
 <html>
     <link rel="stylesheet" href="../../styles/css/postcreate.css">
 <body>
-    <div class = "gifvideo">
-        <img src="../styles/img/saumon.gif" width="100%">
-    </div>
 
     <div class="header">
         <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
@@ -36,11 +33,14 @@
             <h1>Partage ta recette !</h1>
                 <input type="text" name="title" placeholder="Title" required>
                 <input type="file" name="image" accept="image/*" required>
-                <textarea name="description" placeholder="Description" required></textarea>
-                    <label for="pet-select">Choisir une Catégorie:</label>
+                <textarea name="description" placeholder="Recette" required></textarea>
                     <select  placeholder="--Choisir--"  name="food" id="food-select"required>
                         <option value="Create">Créer une Catégories</option>
-                      
+                    </select>
+                    <select  placeholder="--Choisir--"  name="food" id="food-select"required>
+                        <option value="Choose">Entrer</option>
+                        <option value="Choose">Plats</option>
+                        <option value="Choose">Desserts</option>
                     </select>
                 <button class="boutton1" type="submit">Create Post</button>
         </form>

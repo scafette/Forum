@@ -84,9 +84,9 @@ body {
         .post {
             position: relative;
             top: 50px;
-            left: 750px;
-            width: 400px;
-            height: 450px;
+            left: 550px;
+            width: 700px;
+            height: 650px;
             background:rgb(0, 0, 0);
             border: 4mm ridge rgb(252, 70, 100);
         }
@@ -103,8 +103,10 @@ body {
         }
         .boutton1 {
             position: relative;
-            top: 10px;
-            left: 230px;
+            top: 70px;
+            left: 70px;
+            width: 200px;
+            height: 80px;
             display: inline-block;
             padding: 0.9rem 1.8rem;
             font-size: 16px;
@@ -145,8 +147,8 @@ body {
             font-weight: 700;
             color: rgb(0, 0, 0);
             border: 3px solid rgb(252, 70, 100);
-            width: 400px;
-            height: 150px;
+            width: 550px;
+            height: 250px;
             position: relative;
             top: 30px;
            }
@@ -154,7 +156,8 @@ body {
             input {
                 
                 position: relative;
-                top: 20px;
+                top: 30px;
+                width: 350px;
             }
 
             select {
@@ -165,8 +168,8 @@ body {
                 color: rgb(0, 0, 0);
                 border: 3px solid rgb(252, 70, 100);
                 position: relative;
-                top: 60px;
-                right: 150px;
+                top: 80px;
+                left: 5px;
             }
             form h1 {
                 color: white;
