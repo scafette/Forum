@@ -87,7 +87,8 @@ body {
             left: 550px;
             width: 700px;
             height: 650px;
-            background:rgb(0, 0, 0);
+            background-image: url(../img/fourchette.png);
+            background-size: cover;
             border: 4mm ridge rgb(252, 70, 100);
         }
     
