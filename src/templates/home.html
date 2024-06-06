@@ -15,7 +15,11 @@
         </div>
         <ul>
           <li><a href="/profile">Profil</a></li>
+          {{ if .ConnectedUser.Name }}
+          <li><a href="/logout">Déconnexion</a></li>
+          {{ else }}
           <li><a href="/login">Connexion</a></li>
+          {{ end }}
           <li><a href="/categories">Catégories</a></li>
         </ul>
 

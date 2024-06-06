@@ -61,6 +61,7 @@ func Serveur() {
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./images"))))
 	http.HandleFunc("/accueil", forum.HomePage)
 	http.HandleFunc("/login", forum.LoginPage)
+	http.HandleFunc("/logout", forum.LogoutPage)
 	http.HandleFunc("/categories", forum.CategoriesPage)
 	http.HandleFunc("/dessert", forum.DessertPage)
 	http.HandleFunc("/entrer", forum.EntrerPage)

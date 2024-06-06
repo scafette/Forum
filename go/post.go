@@ -209,3 +209,93 @@ func UnlikePosts(post_id string, user_id string) {
 		return
 	}
 }
+func getAllPostsDessert() []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE categories = ?", "Dessert")
+	if err != nil {
+		fmt.Println("Error getting posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+func getAllPostsPlat() []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE categories = ?", "Plat")
+	if err != nil {
+		fmt.Println("Error getting posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+func getAllPostsEntrer() []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return []posts{}
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE categories = ?", "Entree")
+	if err != nil {
+		fmt.Println("Error getting posts:", err)
+		return []posts{}
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		if err != nil {
+			fmt.Println("Error scanning post:", err)
+			return []posts{}
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
