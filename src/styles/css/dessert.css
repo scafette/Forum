@@ -106,4 +106,13 @@ body {
       height: 500px;
   
   }
-  
+
+.rectangle h2 {
+    color: white;
+    font-size: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
