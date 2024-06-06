@@ -180,8 +180,15 @@ body {
                 text-decoration: underline overline rgb(252, 70, 100);
             }
 
+            .titre {
+                position: relative;
+                top: 50px;
+                left: 50px;
+            }
 
-            .gifvideo {
-                width: 100vw;
-                height: 100vh;
-              }
+            .recette {
+                position: relative;
+                top: 50px;
+                left: 50px;
+            }
+
