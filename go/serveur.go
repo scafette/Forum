@@ -128,9 +128,9 @@ func EntrerPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProfilePage(w http.ResponseWriter, r *http.Request) {
-
-	p := ""
-	err := profile.ExecuteTemplate(w, "profile.html", p)
+	var datas Database
+	datas.ConnectedUser = ConnectedUser
+	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
