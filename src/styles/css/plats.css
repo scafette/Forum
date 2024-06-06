@@ -89,7 +89,7 @@ body {
       flex-wrap: wrap;
       width:1800px;
       min-height: 600px;
-      background:rgb(0, 0, 0);
+      background:hsla(0, 0%, 0%, 0.226);
       box-shadow: 0 15px 25px rgba(0,0,0,.6);
       border-radius: 10px;
       
