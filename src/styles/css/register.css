@@ -128,3 +128,11 @@ body {
       cursor: pointer;
   }
   
+  .erreurRegister p {
+    color : white;
+  }
+
+  .erreurRegister {
+    display:flex;
+    align-items:center;
+  }

@@ -3,7 +3,6 @@ package forum
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/google/uuid"
@@ -12,8 +11,6 @@ import (
 type user struct {
 	Customer_id string
 	Name        string
-	Email       string
-	Phone       string
 	Created_at  string
 	Updated_at  string
 	Deleted_at  string
@@ -25,60 +22,47 @@ type user struct {
 
 var ConnectedUser user
 
-func Signup(name string, email string, phone string, password string, role string, avatar string) {
-	// crée le UUID 4 pour le customer_id
-	u2, err := uuid.NewRandom()
-	if err != nil {
-		log.Fatalf("failed to generate UUID: %v", err)
-	}
-	log.Printf("generated Version 4 UUID %v", u2)
-
-	// Ouvre une connexion à la base de données
+func Signup(name string, password string, role string) {
+	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
+		fmt.Printf("failed to open database: %v", err)
 	}
 	defer db.Close()
 
-	// cherche le temps pour la création et/ou update
-	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	//générer un id unique pour l'user
+	id := uuid.New().String()
 
-	// Insertion d'un utilisateur
-	_, err = db.Exec("INSERT INTO users (customer_id, name, email, phone, created_at, updated_at, status, password, role, Avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", u2.String(), name, email, phone, currentTime, currentTime, password, role, avatar)
+	//ajouter l'user à la base de données
+	_, err = db.Exec("INSERT INTO users (customer_id, name, created_at, updated_at, deleted_at, status, password, role, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, name, time.Now().String(), time.Now().String(), "", "active", password, role, "")
 	if err != nil {
-		fmt.Println("Error inserting user:", err)
-		return
+		fmt.Printf("error inserting user: %v", err)
 	}
 }
-func Login(email string, password string) {
-	// co base de données
+func Login(name string, password string) {
+	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
+		fmt.Printf("failed to open database: %v", err)
 	}
 	defer db.Close()
 
-	// recherche de l'user avk Select ( stock tout dans le rows)
-	rows, err := db.Query("SELECT * FROM users WHERE email = ? AND password = ?", email, password)
+	//récupérer l'user de la base de données
+	rows, err := db.Query("SELECT * FROM users WHERE name = ? AND password = ?", name, password)
 	if err != nil {
-		fmt.Println("Error selecting user:", err)
-		return
+		fmt.Printf("error selecting user: %v", err)
 	}
 	defer rows.Close()
-	// boucle pour parcourir les rows , et stocke les valeurs dans infoUser une fois l'user connecté ( ConnectedUser)
+
+	//stocker l'user connecté
 	for rows.Next() {
-		var infoUser user
-		err = rows.Scan(&infoUser.Customer_id, &infoUser.Name, &infoUser.Email, &infoUser.Phone, &infoUser.Created_at, &infoUser.Updated_at, &infoUser.Deleted_at, &infoUser.Status, &infoUser.Password, &infoUser.Role, &infoUser.Avatar)
+		err = rows.Scan(&ConnectedUser.Customer_id, &ConnectedUser.Name, &ConnectedUser.Created_at, &ConnectedUser.Updated_at, &ConnectedUser.Deleted_at, &ConnectedUser.Status, &ConnectedUser.Password, &ConnectedUser.Role, &ConnectedUser.Avatar)
 		if err != nil {
-			fmt.Println("Error scanning user:", err)
-			return
+			fmt.Printf("error scanning user: %v", err)
 		}
-		fmt.Printf("customer_id: %s, name: %s, email: %s, phone: %s, created_at: %s, updated_at: %s, deleted_at: %s, status: %s, password: %s, role: %s, Avatar: %s\n", infoUser.Customer_id, infoUser.Name, infoUser.Email, infoUser.Phone, infoUser.Created_at, infoUser.Updated_at, infoUser.Deleted_at, infoUser.Status, infoUser.Password, infoUser.Role, infoUser.Avatar)
-		ConnectedUser = infoUser
 	}
 }
+
 func ChangePassword(userID string, newPassword string) {
 	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sqlite")
@@ -107,7 +91,7 @@ func Deleteaccount(userID string) {
 		fmt.Printf("error deleting user: %v", err)
 	}
 }
-func Updateaccount(userID string, name string, email string, phone string, avatar string) {
+func Updateaccount(userID string, name string, avatar string) {
 	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sqlite")
 	if err != nil {
@@ -116,7 +100,7 @@ func Updateaccount(userID string, name string, email string, phone string, avata
 	defer db.Close()
 
 	//met à jour les infos de l'user
-	_, err = db.Exec("UPDATE users SET name = ?, email = ?, phone = ?, avatar = ? WHERE customer_id = ?", name, email, phone, avatar, userID)
+	_, err = db.Exec("UPDATE users SET name = ?, email = ?, phone = ?, avatar = ? WHERE customer_id = ?", name, avatar, userID)
 	if err != nil {
 		fmt.Printf("error updating user: %v", err)
 	}

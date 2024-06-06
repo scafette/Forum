@@ -30,11 +30,11 @@
 </div>
 <div class="rectangle">
     {{ range .Posts}}
-    <h2>{{.Title}}</h2>
     <div class="post">
         <a href="/post/{{.Post_id}}">
             <img src=".{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
         </a>
+        <h2>{{.Title}}</h2>
     </div>
     {{end}}
 </div>
