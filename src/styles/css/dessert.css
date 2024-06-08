@@ -106,4 +106,22 @@ footer {
     -webkit-text-stroke-width: 1px;
 -webkit-text-stroke-color: black;
 
+
+}
+
+.back-button {
+    position: relative;
+    top: -50.5px;
+    left: -45px;
+    width: 400px;
+    height: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.back-button button {
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
 }
