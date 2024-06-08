@@ -14,14 +14,21 @@
             </div>
             <ul>
                 <li><a href="/profile">Profil</a></li>
+                {{ if .ConnectedUser.Name }}
+                <li><a href="/logout">Déconnexion</a></li>
+                {{ else }}
                 <li><a href="/login">Connexion</a></li>
+                {{ end }}
                 <li><a href="/categories">Catégories</a></li>
-        </ul>
-
-
+            </ul>
       </nav>
   </div>
 
+{{ if .ConnectedUser.Name }}
+<a href="postcreate">
+    <img src="../../styles/img/Createpost.png" alt="logo" style="width: 370px;" class="logo5">
+</a>
+{{ end }}
 
 <a href="entrer">
 <button class="button_entrer">Entrer</button>

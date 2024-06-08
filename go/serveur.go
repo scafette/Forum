@@ -89,9 +89,11 @@ func LogoutPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func CategoriesPage(w http.ResponseWriter, r *http.Request) {
-
-	p := ""
-	err := Categories.ExecuteTemplate(w, "categories.html", p)
+	var datas Database
+	if ConnectedUser.Customer_id != "" {
+		datas.ConnectedUser = ConnectedUser
+	}
+	err := Categories.ExecuteTemplate(w, "categories.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
