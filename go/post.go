@@ -52,7 +52,7 @@ func CreatePost(title string, content string, user_id string, categories string,
 	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
-	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories,sub, Image) VALUES ( ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories,sub, Image, 0, 0) VALUES ( ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
 		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image)
 	if err != nil {
 		fmt.Println("Error inserting post:", err)
@@ -177,38 +177,6 @@ func GetPostsByUser(user_id string) []posts {
 	}
 	return allPosts
 }
-func LikePosts(post_id string, user_id string) {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
-	}
-	defer db.Close()
-
-	// Insertion d'un like
-	_, err = db.Exec("INSERT INTO likes (post_id, user_id) VALUES (?, ?)", post_id, user_id)
-	if err != nil {
-		fmt.Println("Error liking post:", err)
-		return
-	}
-}
-func UnlikePosts(post_id string, user_id string) {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
-	}
-	defer db.Close()
-
-	// Suppression d'un like
-	_, err = db.Exec("DELETE FROM likes WHERE post_id = ? AND user_id = ?", post_id, user_id)
-	if err != nil {
-		fmt.Println("Error unliking post:", err)
-		return
-	}
-}
 func getAllPostsDessert() []posts {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
@@ -298,4 +266,74 @@ func getAllPostsEntrer() []posts {
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
+}
+func LikePosts(post_id string, user_id string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// Insertion d'un like
+	_, err = db.Exec("INSERT INTO likes (post_id, user_id) VALUES (?, ?)", post_id, user_id)
+	if err != nil {
+		fmt.Println("Error liking post:", err)
+		return
+	}
+}
+func DislikePosts(post_id string, user_id string) {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return
+	}
+	defer db.Close()
+
+	// Suppression d'un like
+	_, err = db.Exec("DELETE FROM likes WHERE post_id = ? AND user_id = ?", post_id, user_id)
+	if err != nil {
+		fmt.Println("Error disliking post:", err)
+		return
+	}
+}
+func getlikebyUser(user_id string) bool {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return false
+	}
+	defer db.Close()
+
+	// Recherche d'un like
+	row := db.QueryRow("SELECT * FROM posts WHERE userlike LIKE ?", "%"+user_id+"%")
+	var like struct{}
+	err = row.Scan(&like)
+	if err != nil {
+		fmt.Println("Error getting like:", err)
+		return false
+	}
+	return true
+}
+func getDislikebyUser(user_id string) bool {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return false
+	}
+	defer db.Close()
+
+	// Recherche d'un dislike
+	row := db.QueryRow("SELECT * FROM posts WHERE userlike NOT LIKE ?", "%"+user_id+"%")
+	var dislike struct{}
+	err = row.Scan(&dislike)
+	if err != nil {
+		fmt.Println("Error getting dislike:", err)
+		return false
+	}
+	return true
 }
