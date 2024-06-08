@@ -29,21 +29,21 @@
     </div>
 </div>
 
-<div class="Titre">
-    <input type="text" name="title" placeholder="{{.Post.Title}}" required value="{{.Post.Title}}">
-    <input type="file" name="image" accept="image/*" required placeholder="Modifier l'image">
-</div>
+<form method="post" enctype="multipart/form-data">
+    <div class="Titre">
+        <input type="text" name="title" placeholder="{{.Post.Title}}" required value="{{.Post.Title}}">
+        <input type="file" name="image" accept="image/*" placeholder="Modifier l'image">
+    </div>
 
-<div class="Recette">
-    <h2>Recette</h2>
-    <textarea name="content" placeholder="{{.Post.Content}}" required>{{.Post.Content}}</textarea>
-</div>
+    <div class="Recette">
+        <h2>Recette</h2>
+        <textarea name="content" placeholder="{{.Post.Content}}" required>{{.Post.Content}}</textarea>
+    </div>
 
-<div class="delete-button">
-    <a href="/update?{{.Post.Post_id}}">
-   <button>Sauvegarder</button>
-    </a>
-</div>
+    <div class="delete-button">
+    <button type="submit">Sauvegarder</button>
+    </div>
+</form>
 
 <div class="edit-button">
     <a href="/post?82c5f76f-7f04-4817-97bd-4c10f375f6fd">

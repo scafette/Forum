@@ -351,7 +351,7 @@ func getPostbyID(post_id string) posts {
 	// Recherche d'un post
 	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
 	var post posts
-	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 	if err != nil {
 		fmt.Println("Error getting post:", err)
 		return posts{}

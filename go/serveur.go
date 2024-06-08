@@ -212,9 +212,26 @@ func EditPostPage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
-		post_id := r.FormValue("post_id")
-		EditPost(post_id, title, content) // APPEL DE LA FONCTION EDITPOST (voir post.go)
-		http.Redirect(w, r, "/categories", http.StatusSeeOther)
+
+		// Récupère le fichier image du formulaire
+		file, handler, err := r.FormFile("image")
+		if err != nil {
+			EditPost(post_id, title, content) // APPEL DE LA FONCTION EDITPOST (voir post.go)
+			http.Redirect(w, r, "/categories", http.StatusSeeOther)
+			return
+		} else {
+			// Sauvegarde l'image téléchargée
+			image, err := saveImage(file, handler)
+			if err != nil {
+				fmt.Fprintf(w, "Error saving image: %v", err)
+				return
+			}
+			fmt.Println(image)
+			EditPost(post_id, title, content) // APPEL DE LA FONCTION EDITPOST (voir post.go)
+			http.Redirect(w, r, "/categories", http.StatusSeeOther)
+		}
+		defer file.Close()
+
 	} else {
 		err := UpdatePost.ExecuteTemplate(w, "updatepost.html", datas)
 		if err != nil {
