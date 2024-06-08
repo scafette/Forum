@@ -62,9 +62,9 @@ body {
               width: 0px;
           }
   
-          /*::-webkit-scrollbar {
+          ::-webkit-scrollbar {
           display: none;
-          }*/
+          }
           .img4 {
           width: 100vw;
           }
@@ -79,15 +79,83 @@ body {
               
           }
 
-            .trait2 {
+            .Titre {
                 position: relative;
-                top: -950px;
-                left: 1000px;
-                border-top: 1px solid #000;
-                width : 910px;
+                top: -500px;
+                left: 250px;
+                width: 450px;
+                height: 200px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
             }
 
+            .post {
+                position: relative;
+                top: 70px;
+                left: 150px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+            }
 
+            .Recette {
+                position: relative;
+                top: -1130px;
+                left: 950px;
+                width: 400px;
+                height: 30px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+            }
 
-  
-  
+            .delete-button {
+                position: relative;
+                top: -1195.5px;
+                left: 730px;
+                width: 0px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+                
+            }
+
+            .delete-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .edit-button {
+                position: relative;
+                top: -1195.5px;
+                left: 15px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .edit-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .back-button {
+                position: relative;
+                top: -1160.5px;
+                left: 15px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+            
+            .back-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+            

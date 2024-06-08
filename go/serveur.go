@@ -22,6 +22,7 @@ var postcreate = template.Must(template.ParseFiles("./src/templates/postcreate.h
 var Register = template.Must(template.ParseFiles("./src/templates/register.html"))
 var ErreurRegister = template.Must(template.ParseFiles("./src/templates/erreurregister.html"))
 var PagePost = template.Must(template.ParseFiles("./src/templates/pagepost.html"))
+var UpdatePost = template.Must(template.ParseFiles("./src/templates/updatepost.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +100,6 @@ func CategoriesPage(w http.ResponseWriter, r *http.Request) {
 func DessertPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.Posts = getAllPostsDessert()
-	fmt.Println(datas.Posts)
 	err := Dessert.ExecuteTemplate(w, "dessert.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -109,7 +109,6 @@ func DessertPage(w http.ResponseWriter, r *http.Request) {
 func PlatPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.Posts = getAllPostsPlat()
-	fmt.Println(datas.Posts)
 	err := Plat.ExecuteTemplate(w, "plat.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -119,7 +118,6 @@ func PlatPage(w http.ResponseWriter, r *http.Request) {
 func EntrerPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.Posts = getAllPostsEntrer()
-	fmt.Println(datas.Posts)
 	err := Entrer.ExecuteTemplate(w, "entrer.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -153,7 +151,7 @@ func saveImage(file multipart.File, header *multipart.FileHeader) (string, error
 }
 
 func PostCreatePage(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	if r.Method == http.MethodPost {
 		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		categories := r.FormValue("categories")
@@ -188,13 +186,39 @@ func PostCreatePage(w http.ResponseWriter, r *http.Request) {
 
 func PostPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
-	post_id := r.URL.Query()
-	// datas.Post = getPostbyID()
-	fmt.Println(post_id)
+	post_id := r.URL.RawQuery
+	datas.Post = getPostbyID(post_id)
 
 	err := PagePost.ExecuteTemplate(w, "pagepost.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
+	}
+}
+
+func DeletePostPage(w http.ResponseWriter, r *http.Request) {
+	post_id := r.URL.RawQuery
+	if post_id != "" {
+		DeletePost(post_id)
+	}
+	http.Redirect(w, r, "/categories", http.StatusSeeOther)
+}
+
+func EditPostPage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	post_id := r.URL.RawQuery
+	datas.Post = getPostbyID(post_id)
+
+	if r.Method == http.MethodPost {
+		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		post_id := r.FormValue("post_id")
+		EditPost(post_id, title, content) // APPEL DE LA FONCTION EDITPOST (voir post.go)
+		http.Redirect(w, r, "/categories", http.StatusSeeOther)
+	} else {
+		err := UpdatePost.ExecuteTemplate(w, "updatepost.html", datas)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 }

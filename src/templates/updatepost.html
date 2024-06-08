@@ -25,36 +25,28 @@
     <div class="trait1">
         <div class="post">
             <img src=".{{.Post.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
-
         </div>
     </div>
 </div>
 
 <div class="Titre">
-    <h1>{{.Post.Title}}</h1>
-    
+    <input type="text" name="title" placeholder="{{.Post.Title}}" required value="{{.Post.Title}}">
+    <input type="file" name="image" accept="image/*" required placeholder="Modifier l'image">
 </div>
 
 <div class="Recette">
     <h2>Recette</h2>
-    <p>{{.Post.Content}}</p>
-    
+    <textarea name="content" placeholder="{{.Post.Content}}" required>{{.Post.Content}}</textarea>
 </div>
 
 <div class="delete-button">
-    <a href="/delete?{{.Post.Post_id}}">
-   <button>Supprimer</button>
+    <a href="/update?{{.Post.Post_id}}">
+   <button>Sauvegarder</button>
     </a>
 </div>
 
 <div class="edit-button">
-    <a href="/edit?{{.Post.Post_id}}">
-    <button>Modifier</button>
-    </a>
-</div>
-
-<div class="back-button">
-    <a href="/categories">
+    <a href="/post?82c5f76f-7f04-4817-97bd-4c10f375f6fd">
     <button>Retour</button>
     </a>
 </div>

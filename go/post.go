@@ -61,7 +61,7 @@ func CreatePost(title string, content string, user_id string, categories string,
 		return
 	}
 }
-func UpdatePost(post_id string, title string, content string) {
+func EditPost(post_id string, title string, content string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
@@ -90,10 +90,10 @@ func DeletePost(post_id string) {
 	defer db.Close()
 
 	// cherche le temps pour la création et/ou update
-	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	// currentTime := time.Now().Format("2006-01-02 15:04:05")
 
 	// Suppression d'un post
-	_, err = db.Exec("UPDATE posts SET deleted_at = ?, status = ? WHERE post_id = ?", currentTime, "deleted", post_id)
+	_, err = db.Exec("DELETE FROM posts WHERE post_id = ?", post_id)
 	if err != nil {
 		fmt.Println("Error deleting post:", err)
 		return
@@ -338,4 +338,23 @@ func getDislikebyUser(user_id string) bool {
 		return false
 	}
 	return true
+}
+func getPostbyID(post_id string) posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
+		return posts{}
+	}
+	defer db.Close()
+
+	// Recherche d'un post
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
+	var post posts
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+	if err != nil {
+		fmt.Println("Error getting post:", err)
+		return posts{}
+	}
+	return post
 }

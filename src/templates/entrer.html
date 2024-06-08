@@ -25,6 +25,11 @@
   </div>
 <div class="test" style="text-align: center;" >
     <h1>Entrée</h1>
+    <div class="back-button">
+        <a href="/categories">
+        <button>Retour</button>
+        </a>
+    </div>
     <div class="trait">
     </div>
 
@@ -32,7 +37,7 @@
 <div class="rectangle">
     {{ range .Posts}}
     <div class="post">
-        <a href="/post/{{.Post_id}}">
+        <a href="/post?{{.Post_id}}">
             <img src=".{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
         </a>
         <h2>{{.Title}}</h2>
@@ -41,7 +46,7 @@
 </div>
 
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: 9%;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -12%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 
