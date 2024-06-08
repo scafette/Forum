@@ -22,6 +22,8 @@ type posts struct {
 	Categories string
 	Sub        string
 	Image      string
+	Likes      int
+	Dislike    int
 }
 
 type Database struct {
@@ -52,8 +54,8 @@ func CreatePost(title string, content string, user_id string, categories string,
 	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
-	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories,sub, Image, 0, 0) VALUES ( ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
-		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image)
+	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories, sub, Image, likes, dislike ) VALUES ( ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image, 0, 0)
 	if err != nil {
 		fmt.Println("Error inserting post:", err)
 		return
@@ -137,7 +139,7 @@ func GetAllPosts() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -198,7 +200,7 @@ func getAllPostsDessert() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -228,7 +230,7 @@ func getAllPostsPlat() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -258,7 +260,7 @@ func getAllPostsEntrer() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
