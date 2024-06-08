@@ -129,6 +129,17 @@ func EntrerPage(w http.ResponseWriter, r *http.Request) {
 func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
+
+	mode := r.URL.RawQuery
+
+	if mode == "publication" {
+		datas.Posts = GetPostsByUser()
+	} else if mode == "like" {
+		datas.Posts = 
+	} else if mode == "dislike" {
+		datas.Posts = 
+	}
+
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
