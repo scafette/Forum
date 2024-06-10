@@ -26,3 +26,12 @@ function enableAll() {
     password2.disabled = false;
     username.disabled = false;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const foodSelect = document.getElementById('food-select');
+    foodSelect.addEventListener('change', () => {
+        if (foodSelect.value === 'Create') {
+            window.location.href = '/create-categorie';
+        }
+    });
+});

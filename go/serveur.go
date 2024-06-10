@@ -23,6 +23,7 @@ var Register = template.Must(template.ParseFiles("./src/templates/register.html"
 var ErreurRegister = template.Must(template.ParseFiles("./src/templates/erreurregister.html"))
 var PagePost = template.Must(template.ParseFiles("./src/templates/pagepost.html"))
 var UpdatePost = template.Must(template.ParseFiles("./src/templates/updatepost.html"))
+var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/create-categorie.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -130,15 +131,15 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
 
-	mode := r.URL.RawQuery
+	// mode := r.URL.RawQuery
 
-	if mode == "publication" {
-		datas.Posts = GetPostsByUser()
-	} else if mode == "like" {
-		datas.Posts = 
-	} else if mode == "dislike" {
-		datas.Posts = 
-	}
+	// if mode == "publication" {
+	// 	datas.Posts = GetPostsByUser()
+	// } else if mode == "like" {
+	// 	datas.Posts = getlikebyUser()
+	// } else if mode == "dislike" {
+	// 	datas.Posts = getDislikebyUser()
+	// }
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
@@ -247,6 +248,20 @@ func EditPostPage(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		err := UpdatePost.ExecuteTemplate(w, "updatepost.html", datas)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
+
+func CreateCategoriePage(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		name := r.FormValue("name") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		CreateCategorie(name)       // APPEL DE LA FONCTION CREATECATEGORIE (voir post.go)
+		http.Redirect(w, r, "/categories", http.StatusSeeOther)
+	} else {
+		p := ""
+		err := CreatecategoriePost.ExecuteTemplate(w, "create-categorie.html", p)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

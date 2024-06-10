@@ -61,6 +61,7 @@ func CreatePost(title string, content string, user_id string, categories string,
 		return
 	}
 }
+
 func EditPost(post_id string, title string, content string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")

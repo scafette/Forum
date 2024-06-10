@@ -4,6 +4,7 @@
 <!DOCTYPE html>                                    
 <html>
     <link rel="stylesheet" href="../../styles/css/postcreate.css">
+    <script src="../../styles/js/log.js"></script>
 <body>
 
     <div class="header">
@@ -16,9 +17,8 @@
 
             <ul>
                 <li><a href="/profile">Profil</a></li>
-                <li><a href="/login">Connexion</a></li>
                 <li><a href="/categories">Catégories</a></li>
-        </ul>
+              </ul>
     </nav>
 </div>
 
@@ -35,7 +35,8 @@
                 <input type="file" name="image" accept="image/*" required>
                 <textarea name="content" placeholder="Recette" required></textarea>
                     <select  placeholder="--Choisir--"  name="sub" id="food-select"required>
-                        <option value="Create">Créer une Catégories</option>
+                        <option value="" disabled selected>--Choisir--</option>
+                        <option value="Create" id="creerunecategorie">Créer une Catégories</option>
                     </select>
                     <select  placeholder="--Choisir--"  name="categories" id="food-select"required>
                         <option value="Entree">Entrer</option>
@@ -48,6 +49,8 @@
     
 
 </body>
+
+
 <footer style="background-color: black; color: white; padding: 20px; margin-top: -8%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>

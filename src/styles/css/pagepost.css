@@ -82,7 +82,7 @@ body {
             .Titre {
                 position: relative;
                 top: -500px;
-                left: 250px;
+                left: 350px;
                 width: 450px;
                 height: 200px;
                 font-size: 20px;
@@ -158,4 +158,88 @@ body {
                 border: none;
                 cursor: pointer;
             }
+
+            .like-post {
+                position: relative;
+                top: 65px;
+            }
+
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+              
+              .container {
+                display: block;
+                position: relative;
+                top: 260px;
+                left: 300px;
+                cursor: pointer;
+                user-select: none;
+              }
+              
+              .container svg {
+                position: relative;
+                top: 0;
+                left: 0;
+                height: 50px;
+                width: 50px;
+                transition: all 0.3s;
+                fill: #666;
+              }
+              
+              .container svg:hover {
+                transform: scale(1.1);
+              }
+              
+              .container input:checked ~ svg {
+                fill: #E3474F;
+              }
+
+              .dislike-post {
+                position: relative;
+                top : 20px;
+                left: 350px;
+               
+            }
+
+              .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+              
+              .container {
+                display: block;
+                position: relative;
+                top: 260px;
+                left: 200px;
+                cursor: pointer;
+                user-select: none;
+              }
+              
+              svg {
+                position: relative;
+                top: 0;
+                left: 0;
+                height: 50px;
+                width: 50px;
+                transition: all 0.3s;
+                fill: #666;
+              }
+              
+              svg:hover {
+                transform: scale(1.1) rotate(-10deg);
+              }
+              
+              .container input:checked ~ svg {
+                fill: rgb(185, 51, 51);
+              }
+              
+              
             

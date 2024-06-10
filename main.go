@@ -52,6 +52,13 @@ func main() {
         status TEXT
     )`)
 	checkErr(err, "Error creating posts table:")
+	// Crée la table categories
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS categories (
+		categorie_id INTEGER PRIMARY KEY,
+		name TEXT
+	)`)
+	checkErr(err, "Error creating categories table:")
+
 	Serveur()
 }
 
@@ -72,6 +79,7 @@ func Serveur() {
 	http.HandleFunc("/post", forum.PostPage)
 	http.HandleFunc("/delete", forum.DeletePostPage)
 	http.HandleFunc("/edit", forum.EditPostPage)
+	http.HandleFunc("/create-categorie", forum.CreateCategoriePage)
 
 	http.ListenAndServe(":2727", nil)
 }
