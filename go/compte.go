@@ -119,3 +119,18 @@ func UpdateUserRole(userID string, role string) {
 		fmt.Printf("error updating user: %v", err)
 	}
 }
+
+func UpdateProfil(username string, password string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sqlite")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//met à jour les infos de l'user
+	_, err = db.Exec("UPDATE users SET name = ?, password = ? WHERE customer_id = ?", username, password, ConnectedUser.Customer_id)
+	if err != nil {
+		fmt.Printf("error updating user: %v", err)
+	}
+}

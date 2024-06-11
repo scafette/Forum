@@ -23,6 +23,7 @@ var Register = template.Must(template.ParseFiles("./src/templates/register.html"
 var ErreurRegister = template.Must(template.ParseFiles("./src/templates/erreurregister.html"))
 var PagePost = template.Must(template.ParseFiles("./src/templates/pagepost.html"))
 var UpdatePost = template.Must(template.ParseFiles("./src/templates/updatepost.html"))
+var Updateprofil = template.Must(template.ParseFiles("./src/templates/updateprofil.html"))
 var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/create-categorie.html"))
 
 // FONCTIONS DES PAGES
@@ -140,6 +141,8 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	// } else if mode == "dislike" {
 	// 	datas.Posts = getDislikebyUser()
 	// }
+
+	datas.Posts = getAllPostsDessert()
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
@@ -262,6 +265,33 @@ func CreateCategoriePage(w http.ResponseWriter, r *http.Request) {
 	} else {
 		p := ""
 		err := CreatecategoriePost.ExecuteTemplate(w, "create-categorie.html", p)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
+
+func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	datas.ConnectedUser = ConnectedUser
+
+	if r.Method == http.MethodPost {
+		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		mdp := r.FormValue("password")      // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		mdpConfirm := r.FormValue("confirm-password")
+
+		if mdp == mdpConfirm {
+			UpdateProfil(username, mdp)
+			http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		} else {
+			err := Updateprofil.ExecuteTemplate(w, "updateprofil.html", datas)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+			return
+		}
+	} else {
+		err := Updateprofil.ExecuteTemplate(w, "updateprofil.html", datas)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

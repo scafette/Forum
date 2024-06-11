@@ -31,15 +31,7 @@
             <img src="../../styles/img/avatar.png" alt="logo" style="width: 250px;">
         </div>
 
-        <div class="edit-button">
-            {{ if .ConnectedUser.Name }}
-            <a href="/updateprofil?{{.ConnectedUser.Customer_id}}">
-            <button>Modifier</button>
-            </a>
-            {{ end }}
-        </div>
-
-
+    
 
         <div class="menu">
                 <form class="form">
@@ -52,7 +44,7 @@
                     </div>
                     <div class="rectangle">
                         {{ range .Posts}}
-                        <h2>{{.Title}}</h2>
+                        <h2>{{.Titre}}</h2>
                         <div class="post">
                             <a href="/post/{{.Post_id}}">
                                 <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
@@ -64,6 +56,17 @@
         </div>
     </div>
 </div>
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="Name">
+        <input type="text" name="Changez votre nom" placeholder="{{.ConnectedUser.Name}}" required value="{{.ConnectedUser.Name}}">
+    </div>
+
+    <div class="delete-button">
+    <button type="submit">Sauvegarder</button>
+    </div>
+</form>
 
 <div class="trait2">
 </div>

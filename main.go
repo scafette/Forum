@@ -80,6 +80,7 @@ func Serveur() {
 	http.HandleFunc("/delete", forum.DeletePostPage)
 	http.HandleFunc("/edit", forum.EditPostPage)
 	http.HandleFunc("/create-categorie", forum.CreateCategoriePage)
+	http.HandleFunc("/updateprofil", forum.UpdateProfilPage)
 
 	http.ListenAndServe(":2727", nil)
 }

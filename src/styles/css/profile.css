@@ -78,6 +78,14 @@ body {
                 font-size: 30px;
                 font-family: 'Roboto', sans-serif;
             }
+
+            .Name {
+                position: relative;
+                top: 50px;
+                left: -80px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
   
   
           /*::-webkit-scrollbar {
@@ -180,6 +188,41 @@ body {
             .DISLIKE-IMG img {
                 width: 35px;
                 height: 25px;
+            }
+
+            .edit-button {
+                position: relative;
+                top: -60.5px;
+                left: 15px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .edit-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .delete-button {
+                position: relative;
+                top: -60.5px;
+                left: 315px;
+                width: 0px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+                
+            }
+
+            .delete-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
             }
 
 
