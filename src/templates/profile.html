@@ -22,6 +22,7 @@
                 <li><a href="/login">Connexion</a></li>
                 {{ end }}
                 <li><a href="/categories">Catégories</a></li>
+                <!-- <li><a href="/">Paramètre</a></li> -->
               </ul>
       </nav>
      
@@ -30,6 +31,14 @@
         <div class="avatar">
             <img src="../../styles/img/avatar.png" alt="logo" style="width: 250px;">
         </div>
+        <div class="Name">
+            {{ if .ConnectedUser.Name }}
+            <h1>{{.ConnectedUser.Name}}</h1>
+            {{ else }}
+            <h1>Utilisateur</h1>
+            {{ end }}
+        </div>
+    </div>
 
         <div class="edit-button">
             {{ if .ConnectedUser.Name }}
@@ -39,28 +48,16 @@
             {{ end }}
         </div>
 
-
-
         <div class="menu">
-                <form class="form">
-                    <div class="Name">
-                        {{ if .ConnectedUser.Name }}
-                        <h1>{{.ConnectedUser.Name}}</h1>
-                        {{ else }}
-                        <h1>Utilisateur</h1>
-                        {{ end }}
+                <div class="rectangle">
+                    {{ range .Posts}}
+                    <div class="post">
+                        <a href="/post/{{.Post_id}}">
+                            <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
+                        </a>
                     </div>
-                    <div class="rectangle">
-                        {{ range .Posts}}
-                        <h2>{{.Title}}</h2>
-                        <div class="post">
-                            <a href="/post/{{.Post_id}}">
-                                <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
-                            </a>
-                        </div>
-                        {{end}}
-                    </div>
-            </form>
+                    {{end}}
+                </div>
         </div>
     </div>
 </div>
@@ -90,6 +87,8 @@
 
 </div>
 
+
+
 <div class="PUBLICATION-IMG">
     <img src="../../styles/img/Publication.png" alt="logo-pub">
 </div>
@@ -102,12 +101,8 @@
     <img src="../../styles/img/Dislike.png" alt="logo-dislike"> 
 </div>
 
-
-
-
-
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: -36.3%;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -36.5%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 

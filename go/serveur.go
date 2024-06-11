@@ -143,6 +143,8 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	datas.Posts = getAllPostsDessert()
+	getAllPostsPlat()
+	getAllPostsEntrer()
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {

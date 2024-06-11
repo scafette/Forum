@@ -64,26 +64,30 @@ body {
 
             .avatar {
                 position: relative;
-                top: 100px;
+                top: 150px;
                 left: 320px;
                 width: 100px;
-                height: 100px;
+                height: 200px;
                 border-radius: 50%;
             }
 
-            .form {
+            .menu {
                 position: relative;
-                top: 150px;
-                left: 310px;
+                top: 50px;
+                left: 50vw;
+                width: 0px;
+                height: 0px;
                 font-size: 30px;
                 font-family: 'Roboto', sans-serif;
             }
 
             .Name {
                 position: relative;
-                top: 50px;
-                left: -80px;
-                font-size: 30px;
+                top: 250px;
+                left: 150px;
+                width: 0px;
+                height: 0px;
+                font-size: 45px;
                 font-family: 'Roboto', sans-serif;
             }
   
@@ -113,7 +117,7 @@ body {
 
             .parametre {
                 position: relative;
-                top: -920px;
+                top: -900.5px;
                 left: 1150px;
                 width: 30%;
                 height: 0px;
@@ -133,7 +137,7 @@ body {
 
             .trait2 {
                 position: relative;
-                top: -950px;
+                top: -930.5px;
                 left: 1000px;
                 border-top: 1px solid #000;
                 width : 910px;
@@ -141,7 +145,7 @@ body {
 
             .PUBLICATION-IMG {
                 position: relative;
-                top: -917.5px;
+                top: -900.5px;
                 left: 1130px;
                 width: 0px;
                 height: 0px;
@@ -158,7 +162,7 @@ body {
 
             .LIKE-IMG {
                 position: relative;
-                top: -926px;
+                top: -900.5px;
                 left: 1410px;
                 width: 0px;
                 height: 0px;
@@ -175,7 +179,7 @@ body {
 
             .DISLIKE-IMG {
                 position: relative;
-                top: -918px;
+                top: -900.5px;
                 left: 1639px;
                 width: 0px;
                 height: 0px;
@@ -192,7 +196,7 @@ body {
 
             .edit-button {
                 position: relative;
-                top: -60.5px;
+                top: -960.5px;
                 left: 15px;
                 width: 400px;
                 height: 0px;
@@ -224,6 +228,36 @@ body {
                 border: none;
                 cursor: pointer;
             }
+
+            .rectangle  {
+                position: relative;
+                top: -850px;
+                left: -120px;          
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+                overflow: hidden;
+                flex-wrap: wrap;
+                width:1100px;
+                height: 700px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow-y: auto;
+          }
+          
+          .rectangle img {
+              min-height: 300px;
+              max-width: auto;
+              border-radius: 10px;
+          }
+          
+          .post {
+              position: relative;
+              overflow: hidden;
+              width: 500px;
+              height: 500px;
+          }
 
 
   

@@ -1,0 +1,291 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    background-color: rgb(0, 0, 0);
+    height : 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;     
+  }
+
+   footer {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100px;
+              top: 731px;
+          }
+  
+      .nav {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 20px;
+              background-color: black;
+              height: 170px;
+          }
+  
+          nav img {
+              width: 100px;
+          }
+  
+          nav ul {
+              position: relative;
+              right: -1500px;
+              display: flex;
+              list-style-type: none;
+              font-size: 30px;
+              top: -50px;
+          }
+  
+          nav ul li {
+              margin: 0 10px;
+          }
+  
+          nav ul li a {
+              color: rgb(255, 255, 255);
+              text-decoration: none;
+              
+          }
+              
+          .logo {
+              position: relative;
+              top: 30px;
+              left: 50px;
+              width: 0px;
+          }
+
+            .avatar {
+                position: relative;
+                top: 100px;
+                left: 320px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+
+            .menu {
+                position: relative;
+                top: 50px;
+                left: 50vw;
+                width: 0px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .Name {
+                position: relative;
+                top: 150px;
+                left: 220px;
+                width: 0px;
+                height: 0px;
+                font-size: 0px;
+                font-family: 'Roboto', sans-serif;
+            }
+  
+  
+          /*::-webkit-scrollbar {
+          display: none;
+          }*/
+          .img4 {
+          width: 100vw;
+          }
+          .trait1 {
+              position: relative;
+              top: 0px;
+              left: 0px;
+              background: rgba(255, 255, 255, 0.918);
+              width:800px;
+              height:950px;
+              border: 1em solid;
+              
+          }
+          .avatar {
+              position: relative;
+              display: flex;
+              align-items:center;
+              justify-content:center;
+          }
+
+            .parametre {
+                position: relative;
+                top: -900.5px;
+                left: 1150px;
+                width: 30%;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .parametre button {
+                border: none;
+                background-color: transparent;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+                cursor: pointer;
+
+            }
+
+            .trait2 {
+                position: relative;
+                top: -930.5px;
+                left: 1000px;
+                border-top: 1px solid #000;
+                width : 910px;
+            }
+
+            .PUBLICATION-IMG {
+                position: relative;
+                top: -900.5px;
+                left: 1130px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                
+            }
+
+            .PUBLICATION-IMG img {
+                width: 30px;
+                height: 20px;
+            }
+
+            .LIKE-IMG {
+                position: relative;
+                top: -900.5px;
+                left: 1410px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                
+            }
+
+            .LIKE-IMG img {
+                width: 40px;
+                height: 30px;
+            }
+
+            .DISLIKE-IMG {
+                position: relative;
+                top: -900.5px;
+                left: 1639px;
+                width: 0px;
+                height: 0px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+          
+            }
+
+            .DISLIKE-IMG img {
+                width: 35px;
+                height: 25px;
+            }
+
+            .edit-button {
+                position: relative;
+                top: -960.5px;
+                left: 15px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .edit-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .delete-button {
+                position: relative;
+                top: -60.5px;
+                left: 315px;
+                width: 0px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+                
+            }
+
+            .delete-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .rectangle  {
+                position: relative;
+                top: -850px;
+                left: -120px;          
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+                overflow: hidden;
+                flex-wrap: wrap;
+                width:1100px;
+                height: 700px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow-y: auto;
+          }
+          
+          .rectangle img {
+              min-height: 300px;
+              max-width: auto;
+              border-radius: 10px;
+          }
+          
+          .post {
+              position: relative;
+              overflow: hidden;
+              width: 500px;
+              height: 500px;
+          }
+
+          .save-button {
+              position: relative;
+              top: -960.5px;
+              left: 730px;
+              width: 400px;
+              height: 0px;
+              font-size: 30px;
+              font-family: 'Roboto', sans-serif;
+          }
+
+            .save-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .updatename {
+                position: relative;
+                top: -570px;
+                left: 320px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+
+  
+  

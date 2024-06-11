@@ -29,3 +29,29 @@ func CreateCategorie(name string) {
 		fmt.Printf("error inserting categorie: %v", err)
 	}
 }
+
+func getallcategories() []categorie {
+
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM categories")
+	if err != nil {
+		fmt.Printf("error getting categories: %v", err)
+	}
+	defer rows.Close()
+
+	var categories []categorie
+	for rows.Next() {
+		var c categorie
+		err = rows.Scan(&c.categorie_id, &c.name)
+		if err != nil {
+			fmt.Printf("error scanning categories: %v", err)
+		}
+		categories = append(categories, c)
+	}
+	return categories
+}
