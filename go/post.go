@@ -4,28 +4,30 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type posts struct {
-	Post_id    string
-	Title      string
-	Userlike   string
-	Content    string
-	User_id    string
-	Created_at string
-	Updated_at string
-	Deleted_at string
-	Status     string
-	Categories string
-	Sub        string
-	Image      string
-	Likes      int
-	Dislike    int
-	Liked      bool
-	Disliked   bool
+	Post_id     string
+	Title       string
+	Userlike    string
+	Content     string
+	User_id     string
+	Created_at  string
+	Updated_at  string
+	Deleted_at  string
+	Status      string
+	Categories  string
+	Sub         string
+	Image       string
+	Likes       int
+	Dislike     int
+	Liked       bool
+	Disliked    bool
+	Userdislike string
 }
 
 type Database struct {
@@ -56,8 +58,8 @@ func CreatePost(title string, content string, user_id string, categories string,
 	currentTime := time.Now().Format("2024-10-12 15:04:05")
 
 	// Insertion d'un post
-	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories, sub, Image, likes, dislike ) VALUES ( ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
-		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image, 0, 0)
+	_, err = db.Exec("INSERT INTO posts (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, categories, sub, Image, likes, dislike, userdislike ) VALUES ( ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+		u2.String(), title, "", content, user_id, currentTime, currentTime, "", "published", categories, sub, image, 0, 0, "")
 	if err != nil {
 		fmt.Println("Error inserting post:", err)
 		return
@@ -114,7 +116,7 @@ func GetPost(post_id string) posts {
 	// Recherche d'un post
 	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
 	var post posts
-	err = row.Scan(&post.Post_id, &post.Title, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
 		fmt.Println("Error getting post:", err)
 		return posts{}
@@ -142,7 +144,7 @@ func GetAllPosts() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -182,7 +184,7 @@ func GetPostsByUser(user_id string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -212,7 +214,7 @@ func getAllPostsDessert() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -242,7 +244,7 @@ func getAllPostsPlat() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -272,7 +274,7 @@ func getAllPostsEntrer() []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -281,57 +283,84 @@ func getAllPostsEntrer() []posts {
 	}
 	return allPosts
 }
-func LikePosts(post_id string, user_id string) {
+func LikePost(post_id string, user_id string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
+		log.Fatal(err)
 	}
 	defer db.Close()
 
-	// Insertion d'un like
-	_, err = db.Exec("INSERT INTO likes (post_id, user_id) VALUES (?, ?)", post_id, user_id)
+	// Vérifie si l'utilisateur a déjà aimé le post
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userlike LIKE ?", post_id, "%"+user_id+"%")
+	var post posts
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
-		fmt.Println("Error liking post:", err)
-		return
+		// L'utilisateur n'a pas encore aimé le post
+		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", post.Userlike+user_id+",", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		// Query qui rajoute a post.Like +1
+		_, err = db.Exec("UPDATE posts SET likes = likes + 1 WHERE post_id = ?", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	} else {
+		// L'utilisateur a déjà aimé le post, supprime son like
+		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userlike, user_id+",", ""), post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Query qui retire a post.Like -1
+		_, err = db.Exec("UPDATE posts SET likes = likes - 1 WHERE post_id = ?", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
-func DislikePosts(post_id string, user_id string) {
+
+func DislikePost(post_id string, user_id string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return
+		log.Fatal(err)
 	}
 	defer db.Close()
 
-	// Suppression d'un like
-	_, err = db.Exec("DELETE FROM likes WHERE post_id = ? AND user_id = ?", post_id, user_id)
+	// Vérifie si l'utilisateur a déjà aimé le post
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userdislike LIKE ?", post_id, "%"+user_id+"%")
+	var post posts
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
-		fmt.Println("Error disliking post:", err)
-		return
-	}
-}
-func getlikebyUser(user_id string) bool {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return false
-	}
-	defer db.Close()
+		// L'utilisateur n'a pas encore aimé le post
+		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", post.Userdislike+user_id+",", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		// Query qui rajoute a post.Like +1
+		_, err = db.Exec("UPDATE posts SET dislike = dislike + 1 WHERE post_id = ?", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	// Recherche d'un like
-	row := db.QueryRow("SELECT * FROM posts WHERE userlike LIKE ?", "%"+user_id+"%")
-	var like struct{}
-	err = row.Scan(&like)
-	if err != nil {
-		fmt.Println("Error getting like:", err)
-		return false
+	} else {
+		// L'utilisateur a déjà aimé le post, supprime son like
+		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userdislike, user_id+",", ""), post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Query qui retire a post.Like -1
+		_, err = db.Exec("UPDATE posts SET dislike = dislike - 1 WHERE post_id = ?", post_id)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
-	return true
 }
+
 func getDislikebyUser(user_id string) bool {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
@@ -363,7 +392,7 @@ func getPostbyID(post_id string) posts {
 	// Recherche d'un post
 	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ?", post_id)
 	var post posts
-	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
 		fmt.Println("Error getting post:", err)
 		return posts{}
@@ -390,7 +419,7 @@ func GetAllPostsLiked(user_id string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -418,7 +447,7 @@ func GetAllPostsDisliked(user_id string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -445,7 +474,7 @@ func getPostByCategories(subcategorie string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -473,7 +502,7 @@ func getAllDessertPostsBySubcategories(subcategorie string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -501,7 +530,7 @@ func getAllPlatPostsBySubcategories(subcategorie string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -529,7 +558,7 @@ func getAllEntreePostsBySubcategories(subcategorie string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
 		}

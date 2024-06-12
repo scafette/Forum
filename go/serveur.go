@@ -345,27 +345,33 @@ func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func Likepostpage(w http.ResponseWriter, r *http.Request) {
+	if ConnectedUser.Customer_id == "" {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	}
 	post_id := r.URL.RawQuery
 	if post_id == "" {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	} else if (getPostbyID(post_id) == posts{}) {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	}
-	// FONCTION A REFAIRE ABSOLUMENT PAS BONNE
-	// LikePosts(post_id, ConnectedUser.Name)
+
+	LikePost(post_id, ConnectedUser.Customer_id)
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }
 
 func DislikepostPage(w http.ResponseWriter, r *http.Request) {
+	if ConnectedUser.Customer_id == "" {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	}
 	post_id := r.URL.RawQuery
 	if post_id == "" {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	} else if (getPostbyID(post_id) == posts{}) {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	}
-	// FONCTION A REFAIRE ABSOLUMENT PAS BONNE
-	// DislikePosts(post_id, ConnectedUser.Name)
+
+	DislikePost(post_id, ConnectedUser.Customer_id)
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }
