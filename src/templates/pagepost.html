@@ -17,7 +17,7 @@
             <ul>
             <li><a href="/profile">Profil</a></li>
                 {{ if .ConnectedUser.Name }}
-                <li><a href="/logout">Déconnexion</a></li>
+                <li><a href="/logout">{{.ConnectedUser.Name}}</a></li>
                 {{ else }}
                 <li><a href="/login">Connexion</a></li>
                 {{ end }}
@@ -62,13 +62,21 @@
     
 </div>
 
-<div class="Recette">
-    <h2>Recette</h2>
-    <p>{{.Post.Content}}</p>
-    
+<div class="box">
+    <div class="content">
+        <!-- Example content -->
+        <h2>Recette :</h2>
+        <p>{{.Post.Content}}</p>
+    </div>
 </div>
 
-
+<div class="box2">
+    <div class="content2">
+        <!-- Example content -->
+        <h2>Commentaire :</h2>
+        <p></p>
+    </div>
+</div>
 
 
 {{ if eq .ConnectedUser.Customer_id .Post.User_id}}
@@ -102,7 +110,7 @@
 
 
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: -47.3%;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -98.3%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 

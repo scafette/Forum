@@ -1,0 +1,148 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    background-color: rgb(0, 0, 0);
+    height : 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;     
+  }
+
+   footer {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100px;
+              top: 731px;
+          }
+  
+      .nav {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 20px;
+              background-color: black;
+              height: 170px;
+          }
+  
+          nav img {
+              width: 100px;
+          }
+  
+          nav ul {
+              position: relative;
+              right: -1500px;
+              display: flex;
+              list-style-type: none;
+              font-size: 30px;
+              top: -50px;
+          }
+  
+          nav ul li {
+              margin: 0 10px;
+          }
+  
+          nav ul li a {
+              color: rgb(255, 255, 255);
+              text-decoration: none;
+              
+          }
+              
+          .logo {
+              position: relative;
+              top: 30px;
+              left: 50px;
+              width: 0px;
+          }
+  
+          ::-webkit-scrollbar {
+          display: none;
+          }
+          .img4 {
+          width: 100vw;
+          }
+          .trait1 {
+              position: relative;
+              top: 0px;
+              left: 0px;
+              background: rgba(255, 255, 255, 0.918);
+              width:800px;
+              height:950px;
+              border: 1em solid;
+              
+          }
+
+            .Titre {
+                position: relative;
+                top: -500px;
+                left: 350px;
+                width: 450px;
+                height: 200px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .post {
+                position: relative;
+                top: 70px;
+                left: 150px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .Recette {
+                position: relative;
+                top: -1130px;
+                left: 950px;
+                width: 400px;
+                height: 30px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .delete-button {
+                position: relative;
+                top: -1195.5px;
+                left: 730px;
+                width: 0px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+                
+            }
+
+            .delete-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .edit-button {
+                position: relative;
+                top: -1195.5px;
+                left: 15px;
+                width: 400px;
+                height: 0px;
+                font-size: 30px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .edit-button button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+
+            
+              
+            

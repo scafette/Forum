@@ -29,9 +29,24 @@ function enableAll() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const foodSelect = document.getElementById('food-select');
+    const filterSelectDessert = document.getElementById('filter-select-dessert')
+    const filterSelectPlat = document.getElementById ('filter-select-plat')
+    const filterSelectEntrer = document.getElementById ('filter-select-entrer')
     foodSelect.addEventListener('change', () => {
         if (foodSelect.value === 'Create') {
             window.location.href = '/create-categorie';
         }
+    });
+
+    filterSelectDessert.addEventListener('change', () => {
+        window.location.href = '/dessert?'+filterSelectDessert.value;
+    });
+
+    filterSelectPlat.addEventListener('change', () => {
+        window.location.href = '/plat?'+filterSelectPlat.value;
+    });
+
+    filterSelectEntrer.addEventListener('change', () => {
+        window.location.href = '/entrer?'+filterSelectEntrer.value;
     });
 });

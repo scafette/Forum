@@ -29,13 +29,17 @@
   </div>
     <div class="trait1">
         <div class="avatar">
+            {{ if .ConnectedUser.Name }}
+            <img src="../../styles/img/avatar1.png" alt="logo" style="width: 350px;">
+            {{ else }}
             <img src="../../styles/img/avatar.png" alt="logo" style="width: 250px;">
+            {{ end }}
         </div>
         <div class="Name">
             {{ if .ConnectedUser.Name }}
             <h1>{{.ConnectedUser.Name}}</h1>
             {{ else }}
-            <h1>Utilisateur</h1>
+            <h1 style="margin-left: -90px;">Utilisateur</h1>
             {{ end }}
         </div>
     </div>
@@ -59,7 +63,7 @@
                     </div>
                     {{end}}
                     {{ else }}
-                    <h2>Vous devez etre connecter pour voir vos publication</h2>
+                    <h2 style="font-size: smaller;">Vous devez être connecté pour voir vos publications</h2>
                     {{ end }}
                 </div>
         </div>

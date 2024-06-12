@@ -84,7 +84,7 @@ body {
             .Name {
                 position: relative;
                 top: 250px;
-                left: 150px;
+                left: 250px;
                 width: 0px;
                 height: 0px;
                 font-size: 45px;
@@ -145,7 +145,7 @@ body {
 
             .PUBLICATION-IMG {
                 position: relative;
-                top: -900.5px;
+                top: -898.5px;
                 left: 1130px;
                 width: 0px;
                 height: 0px;
@@ -162,7 +162,7 @@ body {
 
             .LIKE-IMG {
                 position: relative;
-                top: -900.5px;
+                top: -904.5px;
                 left: 1410px;
                 width: 0px;
                 height: 0px;
@@ -179,7 +179,7 @@ body {
 
             .DISLIKE-IMG {
                 position: relative;
-                top: -900.5px;
+                top: -895.5px;
                 left: 1639px;
                 width: 0px;
                 height: 0px;
@@ -258,6 +258,7 @@ body {
               width: 500px;
               height: 500px;
           }
+          
 
 
   

@@ -25,6 +25,7 @@ var PagePost = template.Must(template.ParseFiles("./src/templates/pagepost.html"
 var UpdatePost = template.Must(template.ParseFiles("./src/templates/updatepost.html"))
 var Updateprofil = template.Must(template.ParseFiles("./src/templates/updateprofil.html"))
 var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/create-categorie.html"))
+var ToutelesCategories = template.Must(template.ParseFiles("./src/templates/Toutelescategories.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +100,14 @@ func CategoriesPage(w http.ResponseWriter, r *http.Request) {
 func DessertPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
+	datas.Categories = getallcategories()
 	datas.Posts = getAllPostsDessert()
+	filtre := r.URL.RawQuery
+
+	if filtre != "" {
+		datas.Posts = getPostByCategories(filtre)
+	}
+
 	err := Dessert.ExecuteTemplate(w, "dessert.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -109,7 +117,14 @@ func DessertPage(w http.ResponseWriter, r *http.Request) {
 func PlatPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
+	datas.Categories = getallcategories()
 	datas.Posts = getAllPostsPlat()
+	filtre := r.URL.RawQuery
+
+	if filtre != "" {
+		datas.Posts = getPostByCategories(filtre)
+	}
+
 	err := Plat.ExecuteTemplate(w, "plat.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -119,8 +134,32 @@ func PlatPage(w http.ResponseWriter, r *http.Request) {
 func EntrerPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
+	datas.Categories = getallcategories()
 	datas.Posts = getAllPostsEntrer()
+	filtre := r.URL.RawQuery
+
+	if filtre != "" {
+		datas.Posts = getPostByCategories(filtre)
+	}
+
 	err := Entrer.ExecuteTemplate(w, "entrer.html", datas)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func ToutelesCategoriesPage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	datas.ConnectedUser = ConnectedUser
+	datas.Categories = getallcategories()
+	datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
+	filtre := r.URL.RawQuery
+
+	if filtre != "" {
+		datas.Posts = getPostByCategories(filtre)
+	}
+
+	err := ToutelesCategories.ExecuteTemplate(w, "Toutelescategories.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -139,6 +178,7 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	} else if mode == "like" {
 		datas.Posts = GetAllPostsLiked(ConnectedUser.Customer_id)
 	}
+
 	// else if mode == "dislike" {
 	// 	datas.Posts = getDislikebyUser(ConnectedUser.Customer_id)
 	// }

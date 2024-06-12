@@ -79,21 +79,22 @@ body {
       width : 2046px;
   }
   .rectangle  {
-      position: relative;
-      left: 5.5vw;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
-      overflow: hidden;
-      flex-wrap: wrap;
-      width:1800px;
-      min-height: 600px;
-      background:rgba(0, 0, 0, 0.228);
-      box-shadow: 0 15px 25px rgba(0,0,0,.6);
-      border-radius: 10px;
-      
+    position: relative;
+    top: 100px;
+    left: 280px;          
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: wrap;
+    width:1500px;
+    height: 700px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto;
   }
+
   .rectangle img {
       min-height: 400px;
       min-width: auto;

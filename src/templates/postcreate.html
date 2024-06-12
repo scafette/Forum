@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="/profile">Profil</a></li>
                     {{ if .ConnectedUser.Name }}
-                    <li><a href="/logout">Déconnexion</a></li>
+                    <li><a href="/logout">{{.ConnectedUser.Name}}</a></li>
                     {{ else }}
                     <li><a href="/login">Connexion</a></li>
                     {{ end }}

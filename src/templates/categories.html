@@ -14,13 +14,13 @@
             </div>
             <ul>
                 <li><a href="/profile">Profil</a></li>
-                {{ if .ConnectedUser.Name }}
-                <li><a href="/logout">Déconnexion</a></li>
-                {{ else }}
-                <li><a href="/login">Connexion</a></li>
-                {{ end }}
-                <li><a href="/categories">Catégories</a></li>
-              </ul>
+                    {{ if .ConnectedUser.Name }}
+                    <li><a href="/logout">{{.ConnectedUser.Name}}</a></li>
+                    {{ else }}
+                    <li><a href="/login">Connexion</a></li>
+                    {{ end }}
+                    <li><a href="/categories">Catégories</a></li>
+                  </ul>
       </nav>
   </div>
 
@@ -43,6 +43,10 @@
 <button class="button_dessert">Desserts</button>
 </a>
 
+<a href="Toutelescategories">
+<button class="button_touteslescategories">Toutes les catégories</button>
+</a>
+
 
 
 
@@ -57,10 +61,17 @@
     <a href="dessert">
         <img src="../../styles/img/DessertCategorie.png" alt="Button-dessert"  class="img3">
     </a>
+   
+</div>
+
+<div class ="Toutelescategorie">
+<a href="Toutelescategories">
+    <img src="../../styles/img/table.jpg" alt="Button-touteslescategories"  class="img4">
+</a>
 </div>
 
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: 20vh;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: 10vh;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 

@@ -6,6 +6,7 @@
 <!DOCTYPE html>                                    
 <html>
     <link rel="stylesheet" href="../../styles/css/dessert.css">
+    <script src="../../styles/js/filtre.js"></script>
 <body>
     <div class="header">
         <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
@@ -18,7 +19,7 @@
             <ul>
                 <li><a href="/profile">Profil</a></li>
                     {{ if .ConnectedUser.Name }}
-                    <li><a href="/logout">Déconnexion</a></li>
+                    <li><a href="/logout">{{.ConnectedUser.Name}}</a></li>
                     {{ else }}
                     <li><a href="/login">Connexion</a></li>
                     {{ end }}
@@ -35,7 +36,15 @@
     </div>
     <div class="trait">
     </div>
-
+    <div class="filter-section" style="text-align: center;">
+        <label> Filtre </label>
+        <select  placeholder="--Choisir--"  name="sub" id="filter-select-dessert"required>
+            <option value="" disabled selected>--Choisir--</option>
+            {{range .Categories}}
+            <option value="{{.Name}}">{{.Name}}</option>
+            {{end}}
+        </select>
+    </div>
 </div>
 <div class="rectangle">
     {{ range .Posts}}
@@ -49,7 +58,7 @@
 </div>
 
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: -12%;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -16%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 
