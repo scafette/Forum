@@ -82,7 +82,7 @@ body {
             .Titre {
                 position: relative;
                 top: -500px;
-                left: 350px;
+                left: 200px;
                 width: 450px;
                 height: 200px;
                 font-size: 20px;
@@ -109,7 +109,7 @@ body {
 
             .delete-button {
                 position: relative;
-                top: -1695.5px;
+                top: -2230.5px;
                 left: 730px;
                 width: 0px;
                 height: 0px;
@@ -127,7 +127,7 @@ body {
 
             .edit-button {
                 position: relative;
-                top: -1695.5px;
+                top: -2230.5px;
                 left: 15px;
                 width: 400px;
                 height: 0px;
@@ -144,7 +144,7 @@ body {
 
             .back-button {
                 position: relative;
-                top: -1560.5px;
+                top: -2200.5px;
                 left: 15px;
                 width: 400px;
                 height: 0px;
