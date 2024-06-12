@@ -7,6 +7,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strings"
 )
 
 // VARIABLE DES TEMPLATES (PAGE HTML)
@@ -179,12 +180,10 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	if mode == "publication" {
 		datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
 	} else if mode == "like" {
-		datas.Posts = GetAllPostsLiked(ConnectedUser.Customer_id)
+		datas.Posts = GetAllPostsLiked(ConnectedUser.Name)
+	} else if mode == "dislike" {
+		datas.Posts = GetAllPostsDisliked(ConnectedUser.Name)
 	}
-
-	// else if mode == "dislike" {
-	// 	datas.Posts = getDislikebyUser(ConnectedUser.Customer_id)
-	// }
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
@@ -355,7 +354,10 @@ func Likepostpage(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	}
 
-	LikePost(post_id, ConnectedUser.Customer_id)
+	LikePost(post_id, ConnectedUser.Name)
+	if strings.Contains(getPostbyID(post_id).Userdislike, ConnectedUser.Name) {
+		DislikePost(post_id, ConnectedUser.Name)
+	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }
@@ -371,7 +373,10 @@ func DislikepostPage(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 	}
 
-	DislikePost(post_id, ConnectedUser.Customer_id)
+	DislikePost(post_id, ConnectedUser.Name)
+	if strings.Contains(getPostbyID(post_id).Userlike, ConnectedUser.Name) {
+		LikePost(post_id, ConnectedUser.Name)
+	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }

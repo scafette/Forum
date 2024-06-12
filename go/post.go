@@ -121,6 +121,16 @@ func GetPost(post_id string) posts {
 		fmt.Println("Error getting post:", err)
 		return posts{}
 	}
+
+	if ConnectedUser.Customer_id != "" {
+		if strings.Contains(post.Userlike, ConnectedUser.Name) {
+			post.Liked = true
+		}
+		if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+			post.Disliked = true
+		}
+	}
+
 	return post
 }
 func GetAllPosts() []posts {
@@ -150,13 +160,14 @@ func GetAllPosts() []posts {
 			return []posts{}
 		}
 
-		// if ConnectedUser.Name != "" {
-		// 	if strings.Contains(post.Userlike, ConnectedUser.Name) {
-		// 		post.Liked = true
-		// 	} else if strings.Contains(post.Userdislike, ConnectedUser.Name) {
-		// 		post.Disliked = true
-		// 	}
-		// }
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
 
 		allPosts = append(allPosts, post)
 	}
@@ -189,6 +200,16 @@ func GetPostsByUser(user_id string) []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
+
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
@@ -218,6 +239,14 @@ func getAllPostsDessert() []posts {
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
+		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
 		}
 		allPosts = append(allPosts, post)
 	}
@@ -249,6 +278,14 @@ func getAllPostsPlat() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
@@ -279,11 +316,19 @@ func getAllPostsEntrer() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
 }
-func LikePost(post_id string, user_id string) {
+func LikePost(post_id string, username string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
@@ -292,12 +337,12 @@ func LikePost(post_id string, user_id string) {
 	defer db.Close()
 
 	// Vérifie si l'utilisateur a déjà aimé le post
-	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userlike LIKE ?", post_id, "%"+user_id+"%")
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userlike LIKE ?", post_id, "%"+username+"%")
 	var post posts
 	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
 		// L'utilisateur n'a pas encore aimé le post
-		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", post.Userlike+user_id+",", post_id)
+		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", post.Userlike+username+",", post_id)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -309,7 +354,7 @@ func LikePost(post_id string, user_id string) {
 
 	} else {
 		// L'utilisateur a déjà aimé le post, supprime son like
-		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userlike, user_id+",", ""), post_id)
+		_, err = db.Exec("UPDATE posts SET userlike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userlike, username+",", ""), post_id)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -322,7 +367,7 @@ func LikePost(post_id string, user_id string) {
 	}
 }
 
-func DislikePost(post_id string, user_id string) {
+func DislikePost(post_id string, username string) {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
@@ -331,12 +376,12 @@ func DislikePost(post_id string, user_id string) {
 	defer db.Close()
 
 	// Vérifie si l'utilisateur a déjà aimé le post
-	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userdislike LIKE ?", post_id, "%"+user_id+"%")
+	row := db.QueryRow("SELECT * FROM posts WHERE post_id = ? AND userdislike LIKE ?", post_id, "%"+username+"%")
 	var post posts
 	err = row.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 	if err != nil {
 		// L'utilisateur n'a pas encore aimé le post
-		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", post.Userdislike+user_id+",", post_id)
+		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", post.Userdislike+username+",", post_id)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -348,7 +393,7 @@ func DislikePost(post_id string, user_id string) {
 
 	} else {
 		// L'utilisateur a déjà aimé le post, supprime son like
-		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userdislike, user_id+",", ""), post_id)
+		_, err = db.Exec("UPDATE posts SET userdislike = ? WHERE post_id = ?", strings.ReplaceAll(post.Userdislike, username+",", ""), post_id)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -361,25 +406,6 @@ func DislikePost(post_id string, user_id string) {
 	}
 }
 
-func getDislikebyUser(user_id string) bool {
-	// Ouvre une connexion à la base de données
-	db, err := sql.Open("sqlite3", "./db.sql")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-		return false
-	}
-	defer db.Close()
-
-	// Recherche d'un dislike
-	row := db.QueryRow("SELECT * FROM posts WHERE userlike NOT LIKE ?", "%"+user_id+"%")
-	var dislike struct{}
-	err = row.Scan(&dislike)
-	if err != nil {
-		fmt.Println("Error getting dislike:", err)
-		return false
-	}
-	return true
-}
 func getPostbyID(post_id string) posts {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
@@ -397,10 +423,19 @@ func getPostbyID(post_id string) posts {
 		fmt.Println("Error getting post:", err)
 		return posts{}
 	}
+
+	if ConnectedUser.Customer_id != "" {
+		if strings.Contains(post.Userlike, ConnectedUser.Name) {
+			post.Liked = true
+		}
+		if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+			post.Disliked = true
+		}
+	}
 	return post
 }
 
-func GetAllPostsLiked(user_id string) []posts {
+func GetAllPostsLiked(username string) []posts {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
@@ -409,7 +444,7 @@ func GetAllPostsLiked(user_id string) []posts {
 	defer db.Close()
 
 	// Recherche de tous les posts
-	rows, err := db.Query("SELECT * FROM posts WHERE userlike LIKE ?", "%"+user_id+"%")
+	rows, err := db.Query("SELECT * FROM posts WHERE userlike LIKE ?", "%"+username+"%")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -423,12 +458,21 @@ func GetAllPostsLiked(user_id string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
+
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
 }
 
-func GetAllPostsDisliked(user_id string) []posts {
+func GetAllPostsDisliked(username string) []posts {
 	// Ouvre une connexion à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
@@ -437,7 +481,7 @@ func GetAllPostsDisliked(user_id string) []posts {
 	defer db.Close()
 
 	// Recherche de tous les posts
-	rows, err := db.Query("SELECT * FROM posts WHERE userdislike LIKE ?", "%"+user_id+"%")
+	rows, err := db.Query("SELECT * FROM posts WHERE userdislike LIKE ?", "%"+username+"%")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -450,6 +494,14 @@ func GetAllPostsDisliked(user_id string) []posts {
 		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
+		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
 		}
 		allPosts = append(allPosts, post)
 	}
@@ -477,6 +529,14 @@ func getPostByCategories(subcategorie string) []posts {
 		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
+		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
 		}
 		allPosts = append(allPosts, post)
 	}
@@ -506,6 +566,14 @@ func getAllDessertPostsBySubcategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
@@ -534,6 +602,14 @@ func getAllPlatPostsBySubcategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
+		}
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
@@ -561,6 +637,14 @@ func getAllEntreePostsBySubcategories(subcategorie string) []posts {
 		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike, &post.Userdislike)
 		if err != nil {
 			log.Fatal(err)
+		}
+		if ConnectedUser.Customer_id != "" {
+			if strings.Contains(post.Userlike, ConnectedUser.Name) {
+				post.Liked = true
+			}
+			if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+				post.Disliked = true
+			}
 		}
 		allPosts = append(allPosts, post)
 	}
