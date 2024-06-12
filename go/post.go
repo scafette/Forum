@@ -453,3 +453,87 @@ func getPostByCategories(subcategorie string) []posts {
 	}
 	return allPosts
 }
+
+func getAllDessertPostsBySubcategories(subcategorie string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE sub = ? AND categories = ?", subcategorie, "Dessert")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+
+func getAllPlatPostsBySubcategories(subcategorie string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE sub = ? AND categories = ?", subcategorie, "Plat")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+
+func getAllEntreePostsBySubcategories(subcategorie string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE sub = ? AND categories = ?", subcategorie, "Entree")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}

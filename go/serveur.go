@@ -105,7 +105,7 @@ func DessertPage(w http.ResponseWriter, r *http.Request) {
 	filtre := r.URL.RawQuery
 
 	if filtre != "" {
-		datas.Posts = getPostByCategories(filtre)
+		datas.Posts = getAllDessertPostsBySubcategories(filtre)
 	}
 
 	err := Dessert.ExecuteTemplate(w, "dessert.html", datas)
@@ -122,7 +122,7 @@ func PlatPage(w http.ResponseWriter, r *http.Request) {
 	filtre := r.URL.RawQuery
 
 	if filtre != "" {
-		datas.Posts = getPostByCategories(filtre)
+		datas.Posts = getAllPlatPostsBySubcategories(filtre)
 	}
 
 	err := Plat.ExecuteTemplate(w, "plat.html", datas)
@@ -139,7 +139,7 @@ func EntrerPage(w http.ResponseWriter, r *http.Request) {
 	filtre := r.URL.RawQuery
 
 	if filtre != "" {
-		datas.Posts = getPostByCategories(filtre)
+		datas.Posts = getAllEntreePostsBySubcategories(filtre)
 	}
 
 	err := Entrer.ExecuteTemplate(w, "entrer.html", datas)
@@ -152,11 +152,14 @@ func ToutelesCategoriesPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
 	datas.Categories = getallcategories()
-	datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
 	filtre := r.URL.RawQuery
 
-	if filtre != "" {
+	if filtre == "all" {
+		datas.Posts = GetAllPosts()
+	} else if filtre != "" {
 		datas.Posts = getPostByCategories(filtre)
+	} else {
+		datas.Posts = GetAllPosts()
 	}
 
 	err := ToutelesCategories.ExecuteTemplate(w, "Toutelescategories.html", datas)
@@ -343,8 +346,26 @@ func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
 
 func Likepostpage(w http.ResponseWriter, r *http.Request) {
 	post_id := r.URL.RawQuery
+	if post_id == "" {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	} else if (getPostbyID(post_id) == posts{}) {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	}
+	// FONCTION A REFAIRE ABSOLUMENT PAS BONNE
+	// LikePosts(post_id, ConnectedUser.Name)
 
-	LikePosts(post_id, ConnectedUser.Name)
+	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+}
+
+func DislikepostPage(w http.ResponseWriter, r *http.Request) {
+	post_id := r.URL.RawQuery
+	if post_id == "" {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	} else if (getPostbyID(post_id) == posts{}) {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+	}
+	// FONCTION A REFAIRE ABSOLUMENT PAS BONNE
+	// DislikePosts(post_id, ConnectedUser.Name)
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }

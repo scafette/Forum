@@ -38,8 +38,9 @@
     </div>
     <div class="filter-section" style="text-align: center;">
         <label> Filtre </label>
-        <select  placeholder="--Choisir--"  name="sub" id="filter-select-dessert"required>
+        <select  placeholder="--Choisir--"  name="sub" id="filter-select-Toutelescategories"required>
             <option value="" disabled selected>--Choisir--</option>
+            <option value="all">Toutes les catégories</option>
             {{range .Categories}}
             <option value="{{.Name}}">{{.Name}}</option>
             {{end}}
