@@ -24,6 +24,8 @@ type posts struct {
 	Image      string
 	Likes      int
 	Dislike    int
+	Liked      bool
+	Disliked   bool
 }
 
 type Database struct {
@@ -31,7 +33,7 @@ type Database struct {
 	Posts         []posts
 	Post          posts
 	// comment		 []comments
-
+	Categories []categorie
 }
 
 func CreatePost(title string, content string, user_id string, categories string, sub string, image string) {
@@ -145,6 +147,15 @@ func GetAllPosts() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+
+		// if ConnectedUser.Name != "" {
+		// 	if strings.Contains(post.Userlike, ConnectedUser.Name) {
+		// 		post.Liked = true
+		// 	} else if strings.Contains(post.Userdislike, ConnectedUser.Name) {
+		// 		post.Disliked = true
+		// 	}
+		// }
+
 		allPosts = append(allPosts, post)
 	}
 	return allPosts
@@ -171,7 +182,7 @@ func GetPostsByUser(user_id string) []posts {
 	var allPosts []posts
 	for rows.Next() {
 		var post posts
-		err = rows.Scan(&post.Post_id, &post.Title, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status)
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
 		if err != nil {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
@@ -358,4 +369,60 @@ func getPostbyID(post_id string) posts {
 		return posts{}
 	}
 	return post
+}
+
+func GetAllPostsLiked(user_id string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE userlike LIKE ?", "%"+user_id+"%")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
+}
+
+func GetAllPostsDisliked(user_id string) []posts {
+	// Ouvre une connexion à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Recherche de tous les posts
+	rows, err := db.Query("SELECT * FROM posts WHERE userdislike LIKE ?", "%"+user_id+"%")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Crée un tableau de posts
+	var allPosts []posts
+	for rows.Next() {
+		var post posts
+		err = rows.Scan(&post.Post_id, &post.Title, &post.Userlike, &post.Content, &post.User_id, &post.Created_at, &post.Updated_at, &post.Deleted_at, &post.Status, &post.Categories, &post.Sub, &post.Image, &post.Likes, &post.Dislike)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allPosts = append(allPosts, post)
+	}
+	return allPosts
 }

@@ -62,7 +62,9 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="updatename">
-        <input type="text" name="Changez votre nom" placeholder="{{.ConnectedUser.Name}}" required value="{{.ConnectedUser.Name}}">
+        <input type="text" name="changeName" placeholder="{{.ConnectedUser.Name}}" required value="{{.ConnectedUser.Name}}">
+        <input type="text" name="changePassword" placeholder="********" >
+        <input type="text" name="changePasswordCheck" placeholder="********" >
     </div>
 
     <div class="save-button">

@@ -65,7 +65,7 @@ func Login(name string, password string) {
 
 func ChangePassword(userID string, newPassword string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
@@ -79,7 +79,7 @@ func ChangePassword(userID string, newPassword string) {
 }
 func Deleteaccount(userID string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
@@ -93,7 +93,7 @@ func Deleteaccount(userID string) {
 }
 func Updateaccount(userID string, name string, avatar string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
@@ -107,7 +107,7 @@ func Updateaccount(userID string, name string, avatar string) {
 }
 func UpdateUserRole(userID string, role string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
@@ -120,17 +120,43 @@ func UpdateUserRole(userID string, role string) {
 	}
 }
 
-func UpdateProfil(username string, password string) {
+func UpdateUsername(userID string, name string) {
 	//co à la base de données
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
 	}
 	defer db.Close()
 
-	//met à jour les infos de l'user
-	_, err = db.Exec("UPDATE users SET name = ?, password = ? WHERE customer_id = ?", username, password, ConnectedUser.Customer_id)
+	//met à jour le nom de l'user
+	_, err = db.Exec("UPDATE users SET name = ? WHERE customer_id = ?", name, userID)
 	if err != nil {
 		fmt.Printf("error updating user: %v", err)
 	}
+}
+
+func GetAccount(userID string) user {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//récupérer l'user de la base de données
+	rows, err := db.Query("SELECT * FROM users WHERE customer_id = ?", userID)
+	if err != nil {
+		fmt.Printf("error selecting user: %v", err)
+	}
+	defer rows.Close()
+
+	//stocker l'user connecté
+	var user user
+	for rows.Next() {
+		err = rows.Scan(&user.Customer_id, &user.Name, &user.Created_at, &user.Updated_at, &user.Deleted_at, &user.Status, &user.Password, &user.Role, &user.Avatar)
+		if err != nil {
+			fmt.Printf("error scanning user: %v", err)
+		}
+	}
+	return user
 }

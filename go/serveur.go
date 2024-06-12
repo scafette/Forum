@@ -29,11 +29,7 @@ var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/cre
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
-
-	if ConnectedUser.Customer_id != "" {
-		datas.ConnectedUser = ConnectedUser
-	}
-
+	datas.ConnectedUser = ConnectedUser
 	err := Home.ExecuteTemplate(w, "home.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -41,6 +37,8 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	if r.Method == http.MethodPost {
 		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANSnammmmmmmmmmmeeeeeee
 		mdp := r.FormValue("password")      // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!) ET LA STOCKE DANS MDP
@@ -57,8 +55,7 @@ func RegisterPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	p := ""
-	err := Register.ExecuteTemplate(w, "register.html", p)
+	err := Register.ExecuteTemplate(w, "register.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -92,9 +89,7 @@ func LogoutPage(w http.ResponseWriter, r *http.Request) {
 
 func CategoriesPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
-	if ConnectedUser.Customer_id != "" {
-		datas.ConnectedUser = ConnectedUser
-	}
+	datas.ConnectedUser = ConnectedUser
 	err := Categories.ExecuteTemplate(w, "categories.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -103,6 +98,7 @@ func CategoriesPage(w http.ResponseWriter, r *http.Request) {
 
 func DessertPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	datas.Posts = getAllPostsDessert()
 	err := Dessert.ExecuteTemplate(w, "dessert.html", datas)
 	if err != nil {
@@ -112,6 +108,7 @@ func DessertPage(w http.ResponseWriter, r *http.Request) {
 
 func PlatPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	datas.Posts = getAllPostsPlat()
 	err := Plat.ExecuteTemplate(w, "plat.html", datas)
 	if err != nil {
@@ -121,6 +118,7 @@ func PlatPage(w http.ResponseWriter, r *http.Request) {
 
 func EntrerPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	datas.Posts = getAllPostsEntrer()
 	err := Entrer.ExecuteTemplate(w, "entrer.html", datas)
 	if err != nil {
@@ -132,19 +130,18 @@ func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
 	datas.ConnectedUser = ConnectedUser
 
-	// mode := r.URL.RawQuery
+	datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
 
-	// if mode == "publication" {
-	// 	datas.Posts = GetPostsByUser()
-	// } else if mode == "like" {
-	// 	datas.Posts = getlikebyUser()
-	// } else if mode == "dislike" {
-	// 	datas.Posts = getDislikebyUser()
+	mode := r.URL.RawQuery
+
+	if mode == "publication" {
+		datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
+	} else if mode == "like" {
+		datas.Posts = GetAllPostsLiked(ConnectedUser.Customer_id)
+	}
+	// else if mode == "dislike" {
+	// 	datas.Posts = getDislikebyUser(ConnectedUser.Customer_id)
 	// }
-
-	datas.Posts = getAllPostsDessert()
-	getAllPostsPlat()
-	getAllPostsEntrer()
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
 	if err != nil {
@@ -170,6 +167,9 @@ func saveImage(file multipart.File, header *multipart.FileHeader) (string, error
 }
 
 func PostCreatePage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	datas.Categories = getallcategories()
+
 	if r.Method == http.MethodPost {
 		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
@@ -193,8 +193,7 @@ func PostCreatePage(w http.ResponseWriter, r *http.Request) {
 		CreatePost(title, content, user_id, categories, sub, image) // APPEL DE LA FONCTION CREATEPOST (voir post.go)
 		http.Redirect(w, r, "/categories", http.StatusSeeOther)
 	} else {
-		p := ""
-		err := postcreate.ExecuteTemplate(w, "postcreate.html", p)
+		err := postcreate.ExecuteTemplate(w, "postcreate.html", datas)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 
@@ -205,6 +204,7 @@ func PostCreatePage(w http.ResponseWriter, r *http.Request) {
 
 func PostPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	post_id := r.URL.RawQuery
 	datas.Post = getPostbyID(post_id)
 
@@ -225,6 +225,7 @@ func DeletePostPage(w http.ResponseWriter, r *http.Request) {
 
 func EditPostPage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	post_id := r.URL.RawQuery
 	datas.Post = getPostbyID(post_id)
 
@@ -260,13 +261,14 @@ func EditPostPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateCategoriePage(w http.ResponseWriter, r *http.Request) {
+	var datas Database
+	datas.ConnectedUser = ConnectedUser
 	if r.Method == http.MethodPost {
-		name := r.FormValue("name") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
-		CreateCategorie(name)       // APPEL DE LA FONCTION CREATECATEGORIE (voir post.go)
+		name := r.FormValue("title") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		CreateCategorie(name)        // APPEL DE LA FONCTION CREATECATEGORIE (voir post.go)
 		http.Redirect(w, r, "/categories", http.StatusSeeOther)
 	} else {
-		p := ""
-		err := CreatecategoriePost.ExecuteTemplate(w, "create-categorie.html", p)
+		err := CreatecategoriePost.ExecuteTemplate(w, "create-categorie.html", datas)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -278,12 +280,11 @@ func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
 	datas.ConnectedUser = ConnectedUser
 
 	if r.Method == http.MethodPost {
-		username := r.FormValue("username") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
-		mdp := r.FormValue("password")      // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
-		mdpConfirm := r.FormValue("confirm-password")
+		username := r.FormValue("changeName") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 
-		if mdp == mdpConfirm {
-			UpdateProfil(username, mdp)
+		if username != "" {
+			UpdateUsername(ConnectedUser.Customer_id, username)
+			ConnectedUser = GetAccount(ConnectedUser.Customer_id)
 			http.Redirect(w, r, "/profile", http.StatusSeeOther)
 		} else {
 			err := Updateprofil.ExecuteTemplate(w, "updateprofil.html", datas)
@@ -298,4 +299,12 @@ func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
+}
+
+func Likepostpage(w http.ResponseWriter, r *http.Request) {
+	post_id := r.URL.RawQuery
+
+	LikePosts(post_id, ConnectedUser.Name)
+
+	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }

@@ -9,8 +9,8 @@ import (
 )
 
 type categorie struct {
-	categorie_id string
-	name         string
+	Categorie_id string
+	Name         string
 }
 
 func CreateCategorie(name string) {
@@ -47,7 +47,7 @@ func getallcategories() []categorie {
 	var categories []categorie
 	for rows.Next() {
 		var c categorie
-		err = rows.Scan(&c.categorie_id, &c.name)
+		err = rows.Scan(&c.Categorie_id, &c.Name)
 		if err != nil {
 			fmt.Printf("error scanning categories: %v", err)
 		}

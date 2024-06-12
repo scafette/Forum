@@ -17,8 +17,13 @@
 
             <ul>
                 <li><a href="/profile">Profil</a></li>
-                <li><a href="/categories">Catégories</a></li>
-              </ul>
+                    {{ if .ConnectedUser.Name }}
+                    <li><a href="/logout">Déconnexion</a></li>
+                    {{ else }}
+                    <li><a href="/login">Connexion</a></li>
+                    {{ end }}
+                    <li><a href="/categories">Catégories</a></li>
+                  </ul>
     </nav>
 </div>
 
@@ -37,7 +42,10 @@
                     <select  placeholder="--Choisir--"  name="sub" id="food-select"required>
                         <option value="" disabled selected>--Choisir--</option>
                         <option value="Create" id="creerunecategorie">Créer une Catégories</option>
-                        <option value="Aucune">Aucune Catégories</option>
+                        <option value="">Aucune Catégories</option>
+                        {{range .Categories}}
+                        <option value="{{.Name}}">{{.Name}}</option>
+                        {{end}}
                     </select>
                     <select  placeholder="--Choisir--"  name="categories" id="food-select"required>
                         <option value="Entree">Entrer</option>

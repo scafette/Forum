@@ -92,9 +92,9 @@ body {
             }
   
   
-          /*::-webkit-scrollbar {
+          ::-webkit-scrollbar {
           display: none;
-          }*/
+          }
           .img4 {
           width: 100vw;
           }
