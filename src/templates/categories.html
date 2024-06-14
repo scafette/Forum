@@ -13,9 +13,9 @@
                 </a>
             </div>
             <ul>
-                <li><a href="/profile">Profil</a></li>
+                <li><a href="/profile?{{.ConnectedUser.Customer_id}}">Profil</a></li>
                     {{ if .ConnectedUser.Name }}
-                    <li><a href="/logout">{{.ConnectedUser.Name}}</a></li>
+                    <li><a href="/logout">Déconnexion</a></li>
                     {{ else }}
                     <li><a href="/login">Connexion</a></li>
                     {{ end }}

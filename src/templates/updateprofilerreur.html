@@ -4,7 +4,7 @@
 </style>
 <!DOCTYPE html>                                    
 <html>
-    <link rel="stylesheet" href="../../styles/css/profile.css">
+    <link rel="stylesheet" href="../../styles/css/updateprofil.css">
 <body>
     <div class="header">
         <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
@@ -29,26 +29,28 @@
   </div>
     <div class="trait1">
         <div class="avatar">
-            <img src="../../styles/img/avatar1.png" alt="logo" style="width: 350px;">
+            <img src="../../styles/img/avatar.png" alt="logo" style="width: 250px;">
         </div>
         <div class="Name">
-            <h1>{{.ProfileUser.Name}}</h1>
+            {{ if .ConnectedUser.Name }}
+            <h1>{{.ConnectedUser.Name}}</h1>
+            {{ else }}
+            <h1>Utilisateur</h1>
+            {{ end }}
         </div>
     </div>
 
         <div class="edit-button">
-            {{ if eq .ProfileUser.Name .ConnectedUser.Name}}
-            <a href="/updateprofil?{{.ConnectedUser.Customer_id}}">
-            <button>Modifier</button>
+            <a href="/profile">
+            <button>retour</button>
             </a>
-            {{ end }}
         </div>
 
         <div class="menu">
                 <div class="rectangle">
                     {{ range .Posts}}
                     <div class="post">
-                        <a href="/post?{{.Post_id}}">
+                        <a href="/post/{{.Post_id}}">
                             <img src="{{.Image}}" alt="Imagedu post" class="button-image" style="width: 500px;">
                         </a>
                     </div>
@@ -58,6 +60,20 @@
     </div>
 </div>
 
+<form method="post" enctype="multipart/form-data">
+    <div class="updatename">
+        <input type="text" name="changeName" placeholder="{{.ConnectedUser.Name}}" required value="{{.ConnectedUser.Name}}">
+        <input type="text" name="changePassword" placeholder="********" >
+        <input type="text" name="changePasswordCheck" placeholder="********" >
+    </div>
+    <div class="erreur">
+        <h1>Les mots de passes ne correspondent pas !</h1>
+    </div>
+
+    <div class="save-button2">
+    <button type="submit">Sauvegarder</button>
+    </div>
+</form>
 <div class="trait2">
 </div>
 
@@ -97,8 +113,9 @@
     <img src="../../styles/img/Dislike.png" alt="logo-dislike"> 
 </div>
 
+
 </body>
-<footer style="background-color: black; color: white; padding: 20px; margin-top: -36.5%;">
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -37%;">
     © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
 </footer>
 

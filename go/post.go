@@ -28,10 +28,12 @@ type posts struct {
 	Liked       bool
 	Disliked    bool
 	Userdislike string
+	Auteur      string
 }
 
 type Database struct {
 	ConnectedUser user
+	ProfileUser   user
 	Posts         []posts
 	Post          posts
 	// comment		 []comments
@@ -122,6 +124,10 @@ func GetPost(post_id string) posts {
 		return posts{}
 	}
 
+	user := GetAccount(post.User_id)
+
+	post.Auteur = user.Name
+
 	if ConnectedUser.Customer_id != "" {
 		if strings.Contains(post.Userlike, ConnectedUser.Name) {
 			post.Liked = true
@@ -159,7 +165,9 @@ func GetAllPosts() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		user := GetAccount(post.User_id)
 
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -200,7 +208,9 @@ func GetPostsByUser(user_id string) []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		user := GetAccount(post.User_id)
 
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -240,6 +250,9 @@ func getAllPostsDessert() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -278,6 +291,9 @@ func getAllPostsPlat() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -316,6 +332,9 @@ func getAllPostsEntrer() []posts {
 			fmt.Println("Error scanning post:", err)
 			return []posts{}
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -423,7 +442,9 @@ func getPostbyID(post_id string) posts {
 		fmt.Println("Error getting post:", err)
 		return posts{}
 	}
+	user := GetAccount(post.User_id)
 
+	post.Auteur = user.Name
 	if ConnectedUser.Customer_id != "" {
 		if strings.Contains(post.Userlike, ConnectedUser.Name) {
 			post.Liked = true
@@ -458,6 +479,9 @@ func GetAllPostsLiked(username string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -495,6 +519,9 @@ func GetAllPostsDisliked(username string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -530,6 +557,9 @@ func getPostByCategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -566,6 +596,9 @@ func getAllDessertPostsBySubcategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -602,6 +635,9 @@ func getAllPlatPostsBySubcategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true
@@ -638,6 +674,9 @@ func getAllEntreePostsBySubcategories(subcategorie string) []posts {
 		if err != nil {
 			log.Fatal(err)
 		}
+		user := GetAccount(post.User_id)
+
+		post.Auteur = user.Name
 		if ConnectedUser.Customer_id != "" {
 			if strings.Contains(post.Userlike, ConnectedUser.Name) {
 				post.Liked = true

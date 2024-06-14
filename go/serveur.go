@@ -27,6 +27,7 @@ var UpdatePost = template.Must(template.ParseFiles("./src/templates/updatepost.h
 var Updateprofil = template.Must(template.ParseFiles("./src/templates/updateprofil.html"))
 var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/create-categorie.html"))
 var ToutelesCategories = template.Must(template.ParseFiles("./src/templates/Toutelescategories.html"))
+var UpdateprofilErreur = template.Must(template.ParseFiles("./src/templates/updateprofilerreur.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -171,18 +172,28 @@ func ToutelesCategoriesPage(w http.ResponseWriter, r *http.Request) {
 
 func ProfilePage(w http.ResponseWriter, r *http.Request) {
 	var datas Database
+	var mode string
 	datas.ConnectedUser = ConnectedUser
 
-	datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
+	user := strings.Split(r.URL.RawQuery, "/")[0]
 
-	mode := r.URL.RawQuery
+	if user == "" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 
+	datas.ProfileUser = GetAccount(user)
+
+	datas.Posts = GetPostsByUser(user)
+
+	if strings.Contains(r.URL.RawQuery, "/") {
+		mode = strings.Split(r.URL.RawQuery, "/")[1]
+	}
 	if mode == "publication" {
-		datas.Posts = GetPostsByUser(ConnectedUser.Customer_id)
+		datas.Posts = GetPostsByUser(user)
 	} else if mode == "like" {
-		datas.Posts = GetAllPostsLiked(ConnectedUser.Name)
+		datas.Posts = GetAllPostsLiked(datas.ProfileUser.Name)
 	} else if mode == "dislike" {
-		datas.Posts = GetAllPostsDisliked(ConnectedUser.Name)
+		datas.Posts = GetAllPostsDisliked(datas.ProfileUser.Name)
 	}
 
 	err := profile.ExecuteTemplate(w, "profile.html", datas)
@@ -322,19 +333,28 @@ func UpdateProfilPage(w http.ResponseWriter, r *http.Request) {
 	datas.ConnectedUser = ConnectedUser
 
 	if r.Method == http.MethodPost {
-		username := r.FormValue("changeName") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		username := r.FormValue("changeName")
+		password := r.FormValue("changePassword")
+		passwordcheck := r.FormValue("changePasswordCheck")
 
 		if username != "" {
 			UpdateUsername(ConnectedUser.Customer_id, username)
 			ConnectedUser = GetAccount(ConnectedUser.Customer_id)
-			http.Redirect(w, r, "/profile", http.StatusSeeOther)
-		} else {
-			err := Updateprofil.ExecuteTemplate(w, "updateprofil.html", datas)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-			return
 		}
+
+		if password != "" {
+			if password == passwordcheck {
+				UpdatePassword(ConnectedUser.Customer_id, password)
+			} else {
+				err := UpdateprofilErreur.ExecuteTemplate(w, "updateprofilerreur.html", datas)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+				}
+				return
+			}
+		}
+
+		http.Redirect(w, r, "/profile", http.StatusSeeOther)
 	} else {
 		err := Updateprofil.ExecuteTemplate(w, "updateprofil.html", datas)
 		if err != nil {

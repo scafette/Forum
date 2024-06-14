@@ -160,3 +160,18 @@ func GetAccount(userID string) user {
 	}
 	return user
 }
+
+func UpdatePassword(userID string, password string) {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//mettre à jour le mot de passe de l'user
+	_, err = db.Exec("UPDATE users SET password = ? WHERE customer_id = ?", password, userID)
+	if err != nil {
+		fmt.Printf("error updating password: %v", err)
+	}
+}

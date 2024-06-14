@@ -288,4 +288,28 @@ body {
 
 
   
-  
+  .erreur {
+    position: absolute;
+    bottom: 20vh;
+    left:10vw;
+    font-size: 12px;
+    color: red;
+  }
+
+
+            .save-button2 {
+              position: relative;
+              top: -86vh;
+              left: 730px;
+              width: 400px;
+              height: 0px;
+              font-size: 30px;
+              font-family: 'Roboto', sans-serif;
+          }
+
+            .save-button2 button {
+                font-family: 'Roboto', sans-serif;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
