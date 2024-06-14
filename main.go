@@ -58,6 +58,23 @@ func main() {
 		name TEXT
 	)`)
 	checkErr(err, "Error creating categories table:")
+	// Crée la table commentaires
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS commentaires (
+		post_id INTEGER PRIMARY KEY,
+		title TEXT,
+		userlike TEXT,
+		content TEXT,
+		user_id TEXT,
+		created_at TEXT,
+		updated_at TEXT,
+		deleted_at TEXT, 
+		likes INTEGER,
+		dislike INTEGER,
+		liked BOOLEAN, 
+		disliked BOOLEAN,
+		userdislike TEXT,
+		auteur TEXT
+	)`)
 
 	Serveur()
 }
