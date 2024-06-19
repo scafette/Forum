@@ -408,7 +408,7 @@ func CommentairesCreatePage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
 		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
-		post_id := r.FormValue("post_id")
+		post_id := r.URL.RawQuery
 		user_id := ConnectedUser.Customer_id
 		CreateComment(title, content, post_id, user_id) // APPEL DE LA FONCTION CREATECOMMEHTAIRE
 		http.Redirect(w, r, "/categories", http.StatusSeeOther)

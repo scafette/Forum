@@ -93,10 +93,13 @@
     <div class="content2">
         <!-- Example content -->
         <h2>Commentaire :</h2>
-        <a href="/createcomment">
+        <a href="/createcomment?{{.Post.Post_id}}">
         <button> Donnez Votre Avis !</button>
         </a>
-        <p>{{.Comment}}</p>
+        {{ range .Comment}}
+        <p>{{.Content}}</p>
+        
+        {{end}}
     </div>
 </div>
 
