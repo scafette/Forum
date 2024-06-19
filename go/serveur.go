@@ -413,7 +413,7 @@ func CommentairesCreatePage(w http.ResponseWriter, r *http.Request) {
 		CreateComment(title, content, post_id, user_id) // APPEL DE LA FONCTION CREATECOMMEHTAIRE
 		http.Redirect(w, r, "/categories", http.StatusSeeOther)
 	} else {
-		err := postcreate.ExecuteTemplate(w, "postcreate.html", datas)
+		err := Commentaires.ExecuteTemplate(w, "createcomment.html", datas)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 
