@@ -32,22 +32,25 @@ type Databasecomment struct {
 }
 
 func CreateComment(title string, content string, post_id string, user_id string) {
-	//co à la base de données
+	// Se connecter à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
 	if err != nil {
 		fmt.Printf("failed to open database: %v", err)
+		return
 	}
 	defer db.Close()
 
-	// cherche le temps pour la création et/ou update
-	_ = time.Now().Format("2024-10-12 15:04:05")
+	// Préparer les dates de création et de mise à jour
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
 
-	//ajouter le commentaire à la base de données
-	_, err = db.Exec("INSERT INTO comments (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, status, likes, dislike, liked, disliked, userdislike, auteur) VALUES (?; ?; ?; ?; ?; ?; ?; ?; ?; ?; ?; ?; ?; ?; ?)", post_id, title, "", content, user_id, time.Now().String(), time.Now().String(), "", "active", 0, 0, false, false, "", "")
+	// Ajouter le commentaire à la base de données
+	_, err = db.Exec("INSERT INTO commentaires (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, likes, dislike, liked, disliked, userdislike, auteur) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		post_id, title, "", content, user_id, currentTime, currentTime, "", "active", 0, 0, false, false, "", "")
 	if err != nil {
 		fmt.Printf("error inserting comment: %v", err)
 	}
 }
+
 func DeleteComment(post_id string) {
 	//co à la base de données
 	db, err := sql.Open("sqlite3", "./db.sql")
