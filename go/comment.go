@@ -7,7 +7,7 @@ import (
 )
 
 type comment struct {
-	Post_id     string
+	comment_id  string
 	Title       string
 	Userlike    string
 	Content     string
@@ -21,6 +21,7 @@ type comment struct {
 	Disliked    bool
 	Userdislike string
 	Auteur      string
+	post_id     string
 }
 type Databasecomment struct {
 	ConnectedUser user
@@ -42,10 +43,10 @@ func CreateComment(title string, content string, post_id string, user_id string)
 
 	// Préparer les dates de création et de mise à jour
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
-
+	user := GetAccount(user_id)
 	// Ajouter le commentaire à la base de données
-	_, err = db.Exec("INSERT INTO commentaires (post_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, likes, dislike, liked, disliked, userdislike, auteur) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-		post_id, title, "", content, user_id, currentTime, currentTime, "", "active", 0, 0, false, false, "", "")
+	_, err = db.Exec("INSERT INTO commentaires (comment_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, likes, dislike, liked, disliked, userdislike, auteur, post_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		comment_id, title, "", content, user_id, currentTime, currentTime, "", 0, 0, false, false, "", user.Name, post_id)
 	if err != nil {
 		fmt.Printf("error inserting comment: %v", err)
 	}

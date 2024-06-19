@@ -93,12 +93,15 @@
     <div class="content2">
         <!-- Example content -->
         <h2>Commentaire :</h2>
+        {{ if .ConnectedUser.Name }}
         <a href="/createcomment?{{.Post.Post_id}}">
         <button> Donnez Votre Avis !</button>
         </a>
         {{ range .Comment}}
         <p>{{.Content}}</p>
-        
+        {{ else }}
+        <p>connecte toi poto </p>
+        {{end}}
         {{end}}
     </div>
 </div>
