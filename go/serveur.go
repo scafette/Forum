@@ -28,6 +28,7 @@ var Updateprofil = template.Must(template.ParseFiles("./src/templates/updateprof
 var CreatecategoriePost = template.Must(template.ParseFiles("./src/templates/create-categorie.html"))
 var ToutelesCategories = template.Must(template.ParseFiles("./src/templates/Toutelescategories.html"))
 var UpdateprofilErreur = template.Must(template.ParseFiles("./src/templates/updateprofilerreur.html"))
+var Commentaires = template.Must(template.ParseFiles("./src/templates/createcomment.html"))
 
 // FONCTIONS DES PAGES
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -260,12 +261,13 @@ func PostPage(w http.ResponseWriter, r *http.Request) {
 	datas.ConnectedUser = ConnectedUser
 	post_id := r.URL.RawQuery
 	datas.Post = getPostbyID(post_id)
+	datas.Comment = GetCommentsByPostID(post_id)
 
 	err := PagePost.ExecuteTemplate(w, "pagepost.html", datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-
 	}
+
 }
 
 func DeletePostPage(w http.ResponseWriter, r *http.Request) {
@@ -399,4 +401,30 @@ func DislikepostPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+}
+func CommentairesCreatePage(w http.ResponseWriter, r *http.Request) {
+	var datas Databasecomment
+	datas.ConnectedUser = ConnectedUser
+	if r.Method == http.MethodPost {
+		title := r.FormValue("title")     // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		content := r.FormValue("content") // RECUPERE LA DONNEE DE LA PAGE HTML (INPUT DE L'USER) (ID !!!!!!)
+		post_id := r.FormValue("post_id")
+		user_id := ConnectedUser.Customer_id
+		CreateComment(title, content, post_id, user_id) // APPEL DE LA FONCTION CREATECOMMEHTAIRE
+		http.Redirect(w, r, "/categories", http.StatusSeeOther)
+	} else {
+		err := postcreate.ExecuteTemplate(w, "postcreate.html", datas)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+
+		}
+	}
+
+}
+func CommentairesDeletePage(w http.ResponseWriter, r *http.Request) {
+	post_id := r.URL.RawQuery
+	if post_id != "" {
+		DeleteComment(post_id)
+	}
+	http.Redirect(w, r, "/categories", http.StatusSeeOther)
 }

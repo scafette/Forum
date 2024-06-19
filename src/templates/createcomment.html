@@ -1,0 +1,61 @@
+<title>imCOOKED</title>
+<style>
+</style>
+<!DOCTYPE html>                                    
+<html>
+    <link rel="stylesheet" href="../../styles/css/postcreate.css">
+    <script src="../../styles/js/log.js"></script>
+<body>
+
+    <div class="header">
+        <nav style="background-color: rgb(0, 0, 0); width: 0px;" >
+            <div class="logo">
+                <a href="accueil">
+                <img src="../../styles/img/logo.png" alt="logo" style="width: 370px;">
+                </a>
+            </div>
+
+            <ul>
+                <li><a href="/profile?{{.ConnectedUser.Customer_id}}">Profil</a></li>
+                    {{ if .ConnectedUser.Name }}
+                    <li><a href="/logout">Déconnexion</a></li>
+                    {{ else }}
+                    <li><a href="/login">Connexion</a></li>
+                    {{ end }}
+                    <li><a href="/categories">Catégories</a></li>
+            </ul>
+    </nav>
+</div>
+
+<div class="back-button">
+    <a href="/categories">
+    <button>Retour</button>
+    </a>
+</div>
+
+<div class="test" style="text-align: center;" >
+    <h1>Votre Avis Nous Interesse !</h1>
+    <div class="trait">
+    </div>
+</div>
+
+
+
+    <div class="post">
+        <form  method="post" enctype="multipart/form-data">
+            <h1>Partagez Votre Avis !</h1>
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="content" placeholder="Votre Avis Juste ici !" required></textarea>
+                <button class="boutton1" type="submit">Postez votre commentaire</button>
+        </form>
+    </div>
+    
+
+</body>
+
+
+<footer style="background-color: black; color: white; padding: 20px; margin-top: -21.5%;">
+    © 2024 by imCOOKED. Proudly created by Elmir.E, Mascaro.G
+</footer>
+
+</html>

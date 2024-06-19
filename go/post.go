@@ -36,8 +36,8 @@ type Database struct {
 	ProfileUser   user
 	Posts         []posts
 	Post          posts
-	// comment		 []comments
-	Categories []categorie
+	Comment       []comment
+	Categories    []categorie
 }
 
 func CreatePost(title string, content string, user_id string, categories string, sub string, image string) {

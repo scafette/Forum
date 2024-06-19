@@ -101,6 +101,7 @@ func Serveur() {
 	http.HandleFunc("/Toutelescategories", forum.ToutelesCategoriesPage)
 	http.HandleFunc("/like", forum.Likepostpage)
 	http.HandleFunc("/dislike", forum.DislikepostPage)
+	http.HandleFunc("/createcomment", forum.CommentairesCreatePage)
 
 	http.ListenAndServe(":2727", nil)
 }

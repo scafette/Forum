@@ -15,13 +15,20 @@ type comment struct {
 	Created_at  string
 	Updated_at  string
 	Deleted_at  string
-	Status      string
 	Likes       int
 	Dislike     int
 	Liked       bool
 	Disliked    bool
 	Userdislike string
 	Auteur      string
+}
+type Databasecomment struct {
+	ConnectedUser user
+	ProfileUser   user
+	Posts         []posts
+	Post          posts
+	comment       []comment
+	Categories    []categorie
 }
 
 func CreateComment(title string, content string, post_id string, user_id string) {
@@ -99,4 +106,58 @@ func DislikeComment(post_id string, user_id string) {
 	if err != nil {
 		fmt.Printf("error disliking comment: %v", err)
 	}
+}
+func GetAllComments() []comment {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//récupérer tous les commentaires de la base de données
+	rows, err := db.Query("SELECT * FROM comments")
+	if err != nil {
+		fmt.Printf("error querying comments: %v", err)
+	}
+	defer rows.Close()
+
+	//créer un tableau de commentaires
+	var comments []comment
+	for rows.Next() {
+		var c comment
+		err = rows.Scan(&c.Post_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur)
+		if err != nil {
+			fmt.Printf("error scanning comment: %v", err)
+		}
+		comments = append(comments, c)
+	}
+	return comments
+}
+func GetCommentsByPostID(post_id string) []comment {
+	//co à la base de données
+	db, err := sql.Open("sqlite3", "./db.sql")
+	if err != nil {
+		fmt.Printf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	//récupérer les commentaires par post_id
+	rows, err := db.Query("SELECT * FROM commentaires WHERE post_id = ?", post_id)
+	if err != nil {
+		fmt.Printf("error querying comments: %v", err)
+	}
+	defer rows.Close()
+
+	//créer un tableau de commentaires
+	var comments []comment
+	for rows.Next() {
+		var c comment
+		err = rows.Scan(&c.Post_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur)
+		if err != nil {
+			fmt.Printf("error scanning comment: %v", err)
+		}
+		comments = append(comments, c)
+	}
+	return comments
 }
