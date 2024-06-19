@@ -98,7 +98,7 @@ footer {
 }
 
 .rectangle h2 {
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 40px;
     position: relative;
     display: flex;
