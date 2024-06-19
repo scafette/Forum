@@ -97,12 +97,16 @@
         <a href="/createcomment?{{.Post.Post_id}}">
         <button> Donnez Votre Avis !</button>
         </a>
+       
+
+        
         {{ range .Comment}}
-        <p>{{.Content}}</p>
-        {{ else }}
-        <!-- <p>connecte toi poto </p> -->
+        <!-- <p>{{.Content}}</p> -->
+        <p>Posté par : <a href="/profile?{{.User_id}}">{{.Auteur}} : </a> {{.Content}}</p>
         {{end}}
+        {{else}}
         {{end}}
+
     </div>
 </div>
 
