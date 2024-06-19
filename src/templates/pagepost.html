@@ -5,6 +5,7 @@
 <!DOCTYPE html>                                    
 <html>
     <link rel="stylesheet" href="../../styles/css/pagepost.css">
+    <link rel="icon" href="../styles/img/logo.ico">
     <script src="../../styles/js/like.js"></script>
 
     <script>
@@ -97,14 +98,14 @@
         <a href="/createcomment?{{.Post.Post_id}}">
         <button> Donnez Votre Avis !</button>
         </a>
+        {{else}}
+        <p2>Connectez-vous pour donner votre avis</p2>
+        {{end}}
        
 
-        
         {{ range .Comment}}
         <!-- <p>{{.Content}}</p> -->
-        <p>Posté par : <a href="/profile?{{.User_id}}">{{.Auteur}} : </a> {{.Content}}</p>
-        {{end}}
-        {{else}}
+        <p><a href="/profile?{{.User_id}}">{{.Auteur}} : </a> {{.Content}}</p>
         {{end}}
 
     </div>
@@ -125,7 +126,7 @@
 </div>
 {{else}}
 <div class="delete-button">
-    <a href="/report?{{.Post.Post_id}}">
+    <!-- <a href="/report?{{.Post.Post_id}}"> -->
    <button>Signaler</button>
     </a>
 </div>

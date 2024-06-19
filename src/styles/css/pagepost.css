@@ -1,299 +1,327 @@
 
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .header {
-    background-color: rgb(0, 0, 0);
-    height : 170px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;     
-  }
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
 
-   footer {
-              position: relative;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100px;
-              top: 731px;
-          }
-  
-      .nav {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 0 20px;
-              background-color: black;
-              height: 170px;
-          }
-  
-          nav img {
-              width: 100px;
-          }
-  
-          nav ul {
-              position: relative;
-              right: -1500px;
-              display: flex;
-              list-style-type: none;
-              font-size: 30px;
-              top: -50px;
-          }
-  
-          nav ul li {
-              margin: 0 10px;
-          }
-  
-          nav ul li a {
-              color: rgb(255, 255, 255);
-              text-decoration: none;
-              
-          }
-              
-          .logo {
-              position: relative;
-              top: 30px;
-              left: 50px;
-              width: 0px;
-          }
-  
-          ::-webkit-scrollbar {
-          display: none;
-          }
-          .img4 {
-          width: 100vw;
-          }
-          .trait1 {
-              position: relative;
-              top: 0px;
-              left: 0px;
-              background: rgba(255, 255, 255, 0.918);
-              width:800px;
-              height:950px;
-              border: 1em solid;
-              
-          }
+.header {
+  background-color: rgb(0, 0, 0);
+  height : 170px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;     
+}
 
-            .Titre {
-                position: relative;
-                top: -500px;
-                left: 0.8vw;
-                width: 73vh;
-                height: 200px;
-                font-size: 20px;
-                font-family: 'Roboto', sans-serif;
-                display: flex;
-                justify-content: center;
-            }
-
-            .post {
-                position: relative;
-                top: 70px;
-                left: 150px;
-                font-size: 20px;
-                font-family: 'Roboto', sans-serif;
-            }
-
-            .Recette {
-                position: relative;
-                top: -1130px;
-                left: 950px;
-                width: 400px;
-                height: 30px;
-                font-size: 20px;
-                font-family: 'Roboto', sans-serif;
-            }
-
-            .delete-button {
-                position: relative;
-                top: -2230.5px;
-                left: 730px;
-                width: 0px;
-                height: 0px;
-                font-size: 30px;
-                font-family: 'Roboto', sans-serif;
-                
-            }
-
-            .delete-button button {
-                font-family: 'Roboto', sans-serif;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-            }
-
-            .edit-button {
-                position: relative;
-                top: -2230.5px;
-                left: 15px;
-                width: 400px;
-                height: 0px;
-                font-size: 30px;
-                font-family: 'Roboto', sans-serif;
-            }
-
-            .edit-button button {
-                font-family: 'Roboto', sans-serif;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-            }
-
-            .back-button {
-                position: relative;
-                top: -2200.5px;
-                left: 15px;
-                width: 400px;
-                height: 0px;
-                font-size: 30px;
-                font-family: 'Roboto', sans-serif;
-            }
-            
-            .back-button button {
-                font-family: 'Roboto', sans-serif;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-            }
-
-            .like-post {
-                position: relative;
-                top: 65px;
-            }
-
-            .container input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-              }
-              
-              .container {
-                display: block;
-                position: relative;
-                top: 300px;
-                left: 300px;
-                cursor: pointer;
-                user-select: none;
-              }
-              
-              .container svg {
-                position: relative;
-                top: 0;
-                left: 0;
-                height: 50px;
-                width: 50px;
-                transition: all 0.3s;
-                fill: #666;
-              }
-              
-              .container svg:hover {
-                transform: scale(1.1);
-              }
-              
-              .container input:checked ~ svg {
-                fill: #E3474F;
-              }
-
-              .dislike-post {
-                position: relative;
-                top : 20px;
-                left: 350px;
-               
-            }
-
-              .container input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-              }
-              
-              .container {
-                display: block;
-                position: relative;
-                top: 300px;
-                left: 200px;
-                cursor: pointer;
-                user-select: none;
-              }
-              
-              svg {
-                position: relative;
-                top: 0;
-                left: 0;
-                height: 50px;
-                width: 50px;
-                transition: all 0.3s;
-                fill: #666;
-              }
-              
-              svg:hover {
-                transform: scale(1.1) rotate(-10deg);
-              }
-              
-              .container input:checked ~ svg {
-                fill: rgb(185, 51, 51);
-              }
-              
-              .box {
-                position: relative;
-                top: -1220px;
-                left: 400px;
-                width: 1100px;
-                height: 400px;
-                margin: 50px auto;
-                padding: 20px;
-                box-shadow: 0 15px 8px rgba(0, 0, 0, 0.1);
-                overflow-y: auto;
-            }
-            .content {
-                height: 400px; /* Example content height */
-            }
-
-            .box2 {
-              position: relative;
-              top: -1280px;
-              left: 400px;
-              width: 1100px;
-              height: 400px;
-              margin: 50px auto;
-              padding: 20px;
-              box-shadow: 0 15px 8px rgba(0, 0, 0, 0.1);
-              overflow-y: auto;
-          }
-          .content2 {
-              height: 400px; /* Example content height */
-          }
-
-.username {
+footer {
   position: relative;
-  top: 28vh;
-  width: 40vw;
-  height: 5vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100px;
+  top: 731px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: black;
+  height: 170px;
+}
+
+nav img {
+width: 100px;
+}
+
+nav ul {
+position: relative;
+right: -1500px;
+display: flex;
+list-style-type: none;
+font-size: 30px;
+top: -50px;
+}
+
+nav ul li {
+margin: 0 10px;
+}
+
+nav ul li a {
+color: rgb(255, 255, 255);
+text-decoration: none;
+
+}
+
+.logo {
+position: relative;
+top: 30px;
+left: 50px;
+width: 0px;
+}
+
+::-webkit-scrollbar {
+display: none;
+}
+.img4 {
+width: 100vw;
+}
+.trait1 {
+position: relative;
+top: 0px;
+left: 0px;
+background: rgba(255, 255, 255, 0.918);
+width:800px;
+height:950px;
+border: 1em solid;
+
+}
+
+.Titre {
+position: relative;
+top: -500px;
+left: 0.8vw;
+width: 73vh;
+height: 200px;
+font-size: 20px;
+font-family: 'Roboto', sans-serif;
+display: flex;
+justify-content: center;
+}
+
+.post {
+position: relative;
+top: 70px;
+left: 150px;
+font-size: 20px;
+font-family: 'Roboto', sans-serif;
+}
+
+.Recette {
+position: relative;
+top: -1130px;
+left: 950px;
+width: 400px;
+height: 30px;
+font-size: 20px;
+font-family: 'Roboto', sans-serif;
+}
+
+.delete-button {
+position: relative;
+top: -2230.5px;
+left: 730px;
+width: 0px;
+height: 0px;
+font-size: 30px;
+font-family: 'Roboto', sans-serif;
+border-radius: 5px;
+
+}
+
+.delete-button button {
+font-family: 'Roboto', sans-serif;
+background-color: transparent;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+border: 1px solid black;
+}
+
+.edit-button {
+position: relative;
+top: -2230.5px;
+left: 18px;
+width: 400px;
+height: 0px;
+font-size: 30px;
+font-family: 'Roboto', sans-serif;
+border-radius: 5px;
+
+}
+
+.edit-button button {
+font-family: 'Roboto', sans-serif;
+background-color: transparent;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+border: 1px solid black;
+}
+
+.back-button {
+position: relative;
+top: -2200.5px;
+left: 18px;
+width: 400px;
+height: 0px;
+font-size: 30px;
+font-family: 'Roboto', sans-serif;
+border-radius: 5px;
+
+}
+
+.back-button button {
+font-family: 'Roboto', sans-serif;
+background-color: transparent;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+border: 1px solid black;
+}
+
+.like-post {
+position: relative;
+top: 65px;
+}
+
+.container input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+
+.container {
+display: block;
+position: relative;
+top: 300px;
+left: 300px;
+cursor: pointer;
+user-select: none;
+}
+
+.container svg {
+position: relative;
+top: 0;
+left: 0;
+height: 50px;
+width: 50px;
+transition: all 0.3s;
+fill: #666;
+}
+
+.container svg:hover {
+transform: scale(1.1);
+}
+
+.container input:checked ~ svg {
+fill: #E3474F;
+}
+
+.dislike-post {
+position: relative;
+top : 20px;
+left: 350px;
+
+}
+
+.container input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+
+.container {
+display: block;
+position: relative;
+top: 300px;
+left: 200px;
+cursor: pointer;
+user-select: none;
+}
+
+svg {
+position: relative;
+top: 0;
+left: 0;
+height: 50px;
+width: 50px;
+transition: all 0.3s;
+fill: #666;
+}
+
+svg:hover {
+transform: scale(1.1) rotate(-10deg);
+}
+
+.container input:checked ~ svg {
+fill: rgb(185, 51, 51);
+}
+
+.box {
+position: relative;
+top: -1220px;
+left: 400px;
+width: 1100px;
+height: 400px;
+margin: 50px auto;
+padding: 20px;
+box-shadow: 0 15px 8px rgba(0, 0, 0, 0.1);
+overflow-y: auto;
+}
+.content {
+height: 400px; /* Example content height */
+}
+
+.box2 {
+position: relative;
+top: -1280px;
+left: 400px;
+width: 1100px;
+height: 400px;
+margin: 50px auto;
+padding: 20px;
+box-shadow: 0 15px 8px rgba(0, 0, 0, 0.1);
+overflow-y: auto;
+}
+.content2 {
+height: 400px; /* Example content height */
+}
+
+.username {
+position: relative;
+top: 28vh;
+width: 40vw;
+height: 5vh;
+display: flex;
+justify-content: center;
 }
 
 a {
-  text-decoration: none;
-  color: blueviolet;
+text-decoration: none;
+color: blueviolet;
 }
 
 a:after {
-  color: blueviolet;
+color: blueviolet;
 }
 
 .content2 p {
- padding: 4px;
- border: 1px solid black;
- border-radius: 5px;
+padding: 4px;
+border: 1px solid black;
+border-radius: 5px;
 }
 
+.content2 button {
+position: relative;
+top: 5px;
+left: 0px;
+width: 130px;
+height: 20px;
+font-size: 12px;
+font-family: 'Roboto', sans-serif;
+background-color: transparent;
+cursor: pointer;
+border-radius: 5px;
+margin-bottom: 10px;
+}
+
+.p2 {
+  width: 0px;
+}
