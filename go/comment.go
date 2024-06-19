@@ -3,11 +3,14 @@ package forum
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type comment struct {
-	comment_id  string
+	Comment_id  string
 	Title       string
 	Userlike    string
 	Content     string
@@ -21,7 +24,7 @@ type comment struct {
 	Disliked    bool
 	Userdislike string
 	Auteur      string
-	post_id     string
+	Post_id     string
 }
 type Databasecomment struct {
 	ConnectedUser user
@@ -40,13 +43,18 @@ func CreateComment(title string, content string, post_id string, user_id string)
 		return
 	}
 	defer db.Close()
+	u2, err := uuid.NewRandom()
+	if err != nil {
+		log.Fatalf("failed to generate UUID: %v", err)
+	}
+	log.Printf("generated Version 4 UUID %v", u2)
 
 	// Préparer les dates de création et de mise à jour
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	user := GetAccount(user_id)
 	// Ajouter le commentaire à la base de données
 	_, err = db.Exec("INSERT INTO commentaires (comment_id, title, userlike, content, user_id, created_at, updated_at, deleted_at, likes, dislike, liked, disliked, userdislike, auteur, post_id) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-		comment_id, title, "", content, user_id, currentTime, currentTime, "", 0, 0, false, false, "", user.Name, post_id)
+		u2.String(), title, "", content, user_id, currentTime, currentTime, "", 0, 0, false, false, "", user.Name, post_id)
 	if err != nil {
 		fmt.Printf("error inserting comment: %v", err)
 	}
@@ -130,7 +138,7 @@ func GetAllComments() []comment {
 	var comments []comment
 	for rows.Next() {
 		var c comment
-		err = rows.Scan(&c.Post_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur)
+		err = rows.Scan(&c.Comment_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur, &c.Post_id)
 		if err != nil {
 			fmt.Printf("error scanning comment: %v", err)
 		}
@@ -157,7 +165,7 @@ func GetCommentsByPostID(post_id string) []comment {
 	var comments []comment
 	for rows.Next() {
 		var c comment
-		err = rows.Scan(&c.Post_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur)
+		err = rows.Scan(&c.Comment_id, &c.Title, &c.Userlike, &c.Content, &c.User_id, &c.Created_at, &c.Updated_at, &c.Deleted_at, &c.Likes, &c.Dislike, &c.Liked, &c.Disliked, &c.Userdislike, &c.Auteur, &c.Post_id)
 		if err != nil {
 			fmt.Printf("error scanning comment: %v", err)
 		}
